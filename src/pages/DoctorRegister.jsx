@@ -1,50 +1,9 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { baseUrl } from '../App';
+import React from 'react'
 import Header from '../Components/Header'
 
-const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const onsubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(`${baseUrl}/login`, {username, password});
-      if (response) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("username", response.data.data.username);
-        localStorage.setItem("first_name", response.data.data.first_name);
-        localStorage.setItem("last_name", response.data.data.last_name);
-        localStorage.setItem("ID", response.data.data._id);
-        localStorage.setItem("role", response.data.data.role);
-        localStorage.setItem("loggedIn", true);
-
-        console.log(localStorage.getItem("token"));
-        console.log(localStorage.getItem("username"));
-        console.log(localStorage.getItem("first_name"));
-        console.log(localStorage.getItem("last_name"));
-        console.log(localStorage.getItem("ID"));
-
-        if (response.data.data.role === "admin") {
-          navigate("/adminDashboard");
-        }
-        else if (response.data.data.role === "doctor") {
-          navigate("/doctorDashboard");
-        }
-        else if(response.data.data.role === "nurse") {
-          navigate("/nurseDashboard");
-        }
-      }
-    }
-    catch(err) {
-      console.log(err);
-    }
-  }
-  return (
-    <section className="h-screen">
+function DoctorRegister() {
+    return (
+        <section className="h-screen">
         <Header/>
       <div className="h-full">
         <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
@@ -75,7 +34,7 @@ const Login = () => {
         </div>
       </div>
     </section>
-  )
+    )
 }
 
-export default Login
+export default DoctorRegister
