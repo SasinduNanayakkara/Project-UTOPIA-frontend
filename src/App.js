@@ -6,6 +6,7 @@ import DoctorDashboard from './pages/DoctorDashboard';
 import NurseDashboard from './pages/NurseDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import DoctorRegister from './pages/DoctorRegister';
+import NurseRegister from './pages/NurseRegister';
 export const baseUrl = "http://localhost:5000/api";
 function App() {
   const router = createBrowserRouter([
@@ -32,6 +33,10 @@ function App() {
     {
       path: "/doctorRegister",
       element: <DoctorRegister />
+    },
+    {
+      path: "/nurseRegister",
+      element: <NurseRegister />
     }
   ]);
   return (
