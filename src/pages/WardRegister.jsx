@@ -10,8 +10,10 @@ function WardRegister() {
   const [hospitalID, setHospitalID] = useState("");
   const [no_of_beds, setNo_of_beds] = useState("");
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
     setHospitalID(location.state.hospitalId);
+  },[]);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${baseUrl}/ward`, { name, hospitalID, no_of_beds});
@@ -23,7 +25,7 @@ function WardRegister() {
       console.log(error);
     }
   }
-
+console.log(location.state.hospitalId);
   return (
     <section className="h-screen">
       <Header />
