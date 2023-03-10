@@ -11,6 +11,10 @@ import HospitalRegister from './pages/HospitalRegister';
 import Hospitals from './pages/Hospitals';
 import HospitalDashboard from './pages/HospitalDashboard';
 import WardRegister from './pages/WardRegister';
+import Wards from './pages/Wards';
+import WardDashboard from './pages/WardDashboard';
+import Patients from './pages/Patients';
+import PatientRegister from './pages/PatientRegister';
 export const baseUrl = "http://localhost:5000/api";
 function App() {
   const router = createBrowserRouter([
@@ -57,6 +61,22 @@ function App() {
     {
       path: "/wardRegister",
       element: <WardRegister />
+    },
+    {
+      path: "/wards",
+      element: <Wards />
+    },
+    {
+      path: "/WardDashboard",
+      element: <WardDashboard />
+    },
+    {
+      path: "/patients",
+      element: <Patients />
+    },
+    {
+      path: "/patientRegister",
+      element: <PatientRegister />
     }
   ]);
   return (
