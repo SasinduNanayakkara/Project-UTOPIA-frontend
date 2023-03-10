@@ -9,7 +9,7 @@ function HospitalDashboard() {
     const locationData = location.state.location;
 
     const addWard = (e) => {
-        navigate('/wardRegister', { state: { hospitalId: id } })
+        navigate('/wards', { state: { hospitalId: id } })
     }
 
   return (
@@ -18,7 +18,7 @@ function HospitalDashboard() {
         <h1>{name}</h1>
         <h1>{locationData}</h1>
         <h1>{id}</h1>
-        <button onClick={(e) => addWard(e)}>add ward</button>
+        <button onClick={(e) => addWard(e)}>Wards</button>
     </div>
   )
 }
