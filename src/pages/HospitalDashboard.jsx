@@ -9,7 +9,7 @@ function HospitalDashboard() {
     const locationData = location.state.location;
 
     const addWard = (e) => {
-        navigate('/wards', { state: { hospitalId: id } })
+        navigate('/wards', { state: { hospitalID: id } })
     }
 
   return (
