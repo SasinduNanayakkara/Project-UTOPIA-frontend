@@ -1,9 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { baseUrl } from '../App';
 import Header from '../Components/Header'
 
 function NurseRegister() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const wardID = location.state.wardID;
+    const HospitalID = location.state.HospitalID;
+    console.log("ward id", wardID);
+    console.log("hospital id", HospitalID);
     const [first_name, setFirst_name] = useState("");
     const [last_name, setLast_name] = useState("");
     const [email, setEmail] = useState("");
@@ -16,53 +23,17 @@ function NurseRegister() {
     const [ward, setWard] = useState("");
     const [timeSlot, setTimeSlot] = useState("");
     const [passwordMatch, setPasswordMatch] = useState(true);
-    useEffect(() => {
-        const getHospitals = async () => {
-            try {
-                const response = await axios.get(`${baseUrl}/hospital`);
-                if (response) {
-                    console.log("ok");
-                    setHospitals(response.data);
-                }
-            }
-            catch (error) {
-                console.log(error);
-            }
-        }
-        getHospitals();
-        getWards();
-    }, []);
 
-    const getWards = async () => {
-        if (Hospital !== "") {
-            try {
-                const response = await axios.get(`${baseUrl}/hospital/${Hospital}`);
-                if (response) {
-                    console.log("ok");
-                    setWards(response.data);
-                }
-            }
-            catch (error) {
-                console.log(error);
-            }
-        }
-    console.log("wards: ", wards);
-    }
-    if (Hospital !== "") {
-        getWards();
-    }
-    console.log("hospital id", Hospital);
-    console.log(hospitals);
     const handleSubmit = async (e) => {
-        console.log("hospital id", Hospital);
-        console.log("ward id", ward);
+        console.log("hospital id", HospitalID);
+        console.log("ward id", wardID);
         if (password !== confirm_password) {
             setPasswordMatch(false);
             return;
         }
         e.preventDefault();
         try {
-            const response = await axios.post(`${baseUrl}/nurse`, { first_name, last_name, email, username, password, hospitalID: Hospital, timeSlot, ward });
+            const response = await axios.post(`${baseUrl}/nurse`, { first_name, last_name, email, username, password, hospitalID: HospitalID, timeSlot, ward: wardID });
             if (response) {
                 console.log(response);
             }
@@ -83,7 +54,7 @@ function NurseRegister() {
                     <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
                         <form class="w-full max-w-lg">
                             <div class="flex flex-wrap -mx-3 mb-6">
-                                <h2 class="mb-10 mt-5 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Doctor Registration</h2>
+                                <h2 class="mb-10 mt-5 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Nurse Registration</h2>
                                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                         First Name
@@ -140,38 +111,6 @@ function NurseRegister() {
                                     {passwordMatch ? <p></p> :
                                         <p class="text-red-600 text-xs italic">Password not matching</p>
                                     }
-                                </div>
-                            </div>
-                            <div class="flex flex-wrap -mx-3 mb-6">
-                                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                                        Hospital
-                                    </label>
-                                    <div class="relative">
-                                        <select onChange={(e) => setHospital(e.target.value)} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                            {hospitals.map((hospital) => (
-                                                <option value={hospital._id}>{hospital.name}</option>
-                                            ))}
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                                        Ward
-                                    </label>
-                                    <div class="relative">
-                                        <select onChange={(e) => setWard(e.target.value)} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                            {wards.map((ward) => (
-                                                <option value={ward._id}>{ward.name}</option>
-                                            ))}
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mb-6">
