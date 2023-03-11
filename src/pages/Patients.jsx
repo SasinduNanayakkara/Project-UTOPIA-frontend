@@ -16,7 +16,6 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import ExitToApp from '@material-ui/icons/ExitToApp';
 import axios from 'axios';
 import { baseUrl } from '../App';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -77,6 +76,7 @@ function Patients() {
   const navigatePatientRegister = (e) => {
     navigate('/patientRegister', { state: { wardID: wardID }})
   }
+  const PatientTitle = <span className='font-bold'>Hospital Name</span>
 
   return (
     <div>
@@ -91,7 +91,7 @@ function Patients() {
         <MaterialTable
           icons={tableIcons}
           columns={[
-            { title: 'Patient Name', field: 'name' },
+            { title: PatientTitle, field: 'name' },
             { title: 'status', field: 'status' },
             { title: 'Admit Date', field: 'admit_date' },
             { title: 'Address', field: 'address' },

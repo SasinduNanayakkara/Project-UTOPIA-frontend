@@ -26,7 +26,8 @@ function Wards() {
   const [Wards, setWards] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const hospitalId = location.state.hospitalId;
+  const hospitalID = location.state.hospitalID;
+  console.log("hospitalId", hospitalID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -50,7 +51,7 @@ function Wards() {
   useEffect(() => {
     const getWards = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/ward/hospital/${hospitalId}`);
+        const response = await axios.get(`${baseUrl}/ward/hospital/${hospitalID}`);
         if (response.status === 200) {
             console.log(response.data);
           setWards(response.data);
@@ -65,11 +66,11 @@ function Wards() {
   console.log(Wards);
 
   const navigateToWard = (event, rowData) => {
-    navigate('/wardDashboard', { state: { HospitalId: hospitalId, wardID: rowData._id, wardName: rowData.name, no_of_beds: rowData.no_of_beds } })
+    navigate('/wardDashboard', { state: { HospitalID: hospitalID, wardID: rowData._id, wardName: rowData.name, no_of_beds: rowData.no_of_beds } })
   }
 
   const navigateWardRegister = (e) => {
-    navigate('/wardRegister', { state: { hospitalId: hospitalId }})
+    navigate('/wardRegister', { state: { hospitalId: hospitalID }})
   }
 
   return (
