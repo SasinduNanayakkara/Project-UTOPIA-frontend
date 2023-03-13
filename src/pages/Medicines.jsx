@@ -72,6 +72,14 @@ function Medicines() {
     navigate('/medicineRegister', { state: { wardID: wardID } })
   }
 
+  const navigateToMedicineIncrease = (event, rowData) => {
+    navigate('/medicineIncrease', { state: { medicineName: rowData.name,  medicineID: rowData._id, wardID: wardID, serialNumber: rowData.serial_number } })
+  }
+
+  const navigateToDecreaseMedicine = (event, rowData) => {
+    navigate('/medicineDecrease', { state: { medicineName: rowData.name,  medicineID: rowData._id, wardID: wardID, serialNumber: rowData.serial_number } })
+  }
+
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
@@ -98,14 +106,14 @@ function Medicines() {
               onClick: (event, rowData) => { navigateToMedicine(event, rowData) }
             },
             {
-              icon: '📝',
-              tooltip: 'Edit Hospital',
-              onClick: (event, rowData) => { }
+              icon: '+',
+              tooltip: 'Add More',
+              onClick: (event, rowData) => { navigateToMedicineIncrease(event, rowData) }
             },
             {
-              icon: '🗑',
+              icon: '-',
               tooltip: 'Delete Hospital',
-              onClick: (event, rowData) => { }
+              onClick: (event, rowData) => { navigateToDecreaseMedicine(event, rowData) }
             }
           ]}
           options={{

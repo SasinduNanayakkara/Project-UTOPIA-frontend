@@ -3,23 +3,19 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { baseUrl } from '../App';
 import Header from '../Components/Header'
-import Notification from '../Components/Notification';
 
-function MedicineRegister() {
+function IncreaseMedicine() {
     const location = useLocation();
     const navigate = useNavigate();
+    const medicineID = location.state.medicineID;
+    const medicineName = location.state.medicineName;
+    const serialNumber = location.state.serialNumber;
     console.log(location.state.wardID);
-    const [name, setName] = useState("");
+    const [name, setName] = useState(medicineName);
     const [wardID, setWardID] = useState("");
-    const [serial_number, setSerial_number] = useState("");
-    const [quantity, setQuantity] = useState("");
+    const [serial_number, setSerial_number] = useState(serialNumber);
+    const [quantity, setQuantity] = useState(0);
     const [type, setType] = useState("drugs");
-
-    const [notify, setNotify] = useState({
-        isOpen: false,
-        message: "",
-        type: "",
-    });
 
     useEffect(() => {
         setWardID(location.state.wardID);
@@ -28,14 +24,9 @@ function MedicineRegister() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${baseUrl}/inventory`, { serial_number, name, type, quantity, ward: wardID, });
+            const response = await axios.put(`${baseUrl}/inventory/increase/${medicineID}`, { qty: parseInt(quantity) });
             if (response) {
                 console.log(response);
-                setNotify({
-                    isOpen: true,
-                    message: "Medicine Registered Successfully",
-                    type: "success",
-                })
             }
         }
         catch (error) {
@@ -55,11 +46,11 @@ function MedicineRegister() {
                         <form class="w-full max-w-lg">
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
-                                    <h2 class="mb-10 mt-5 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Medicine Registration</h2>
+                                    <h2 class="mb-10 mt-5 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Increase Medicine Amount</h2>
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Medicine Name
                                     </label>
-                                    <input onChange={(e) => setName(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Medicine Name" />
+                                    <input value={medicineName} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Medicine Name" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -67,30 +58,29 @@ function MedicineRegister() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Serial Number
                                     </label>
-                                    <input onChange={(e) => setSerial_number(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Serial Number" />
+                                    <input value={serialNumber} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Serial Number" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-                                        Quantity
+                                        Increase Amount
                                     </label>
                                     <input onChange={(e) => setQuantity(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="number" placeholder="Quantity" />
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mb-6">
                                 <button onClick={(e) => { handleSubmit(e) }} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                                    Register
+                                    Update
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <Notification notify={notify} setNotify={setNotify} />
         </section>
     )
 }
 
-export default MedicineRegister
+export default IncreaseMedicine
 

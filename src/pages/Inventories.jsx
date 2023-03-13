@@ -72,6 +72,14 @@ function Inventories() {
     navigate('/inventoryRegister', { state: { wardID: wardID } })
   }
 
+  const navigateToIncenseInventory = (event, rowData) => {
+    navigate('/increaseInventory', { state: { medicineName: rowData.name,  medicineID: rowData._id, wardID: wardID, serialNumber: rowData.serial_number } })
+  }
+
+  const navigateToDecreaseInventory = (event, rowData) => {
+    navigate('/decreaseInventory', { state: { medicineName: rowData.name,  medicineID: rowData._id, wardID: wardID, serialNumber: rowData.serial_number } })
+  }
+
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
@@ -98,14 +106,14 @@ function Inventories() {
               onClick: (event, rowData) => { navigateToInventory(event, rowData) }
             },
             {
-              icon: '📝',
-              tooltip: 'Edit Hospital',
-              onClick: (event, rowData) => { }
+              icon: '+',
+              tooltip: 'Add more Inventory',
+              onClick: (event, rowData) => { navigateToIncenseInventory(event, rowData) }
             },
             {
-              icon: '🗑',
+              icon: '-',
               tooltip: 'Delete Hospital',
-              onClick: (event, rowData) => { }
+              onClick: (event, rowData) => { navigateToDecreaseInventory(event, rowData) }
             }
           ]}
           options={{
