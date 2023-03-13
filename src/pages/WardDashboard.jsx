@@ -11,7 +11,7 @@ function WardDashboard() {
     console.log("ward", wardID);
     console.log("hospital ID", HospitalID);
     const navigateToPatients = (e) => {
-        navigate('/patients', { state: { wardID: wardID } });
+        navigate('/patients', { state: { wardID: wardID, HospitalID: HospitalID } });
     }
     const navigateToNurses = (e) => {
       navigate('/nurses', { state: { wardID: wardID, HospitalID: HospitalID } });

@@ -11,6 +11,9 @@ function HospitalDashboard() {
     const addWard = (e) => {
         navigate('/wards', { state: { hospitalID: id } })
     }
+    const navigateToDoctors = (e) => {
+        navigate('/doctors', { state: { hospitalID: id } })
+    }
 
   return (
     <div>
@@ -19,6 +22,8 @@ function HospitalDashboard() {
         <h1>{locationData}</h1>
         <h1>{id}</h1>
         <button onClick={(e) => addWard(e)}>Wards</button>
+        <br />
+        <button onClick={(e) => navigateToDoctors(e)}>Doctors</button>
     </div>
   )
 }
