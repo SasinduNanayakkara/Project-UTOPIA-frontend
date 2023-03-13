@@ -7,7 +7,7 @@ import Header from '../Components/Header'
 function UpdateDoctor() {
     const navigate = useNavigate();
     const location = useLocation();
-    const doctorID = location.state.doctorID;
+    const doctorID = location.state.id;
     const [first_name, setFirst_name] = useState("");
     const [last_name, setLast_name] = useState("");
     const [email, setEmail] = useState("");
@@ -19,6 +19,7 @@ function UpdateDoctor() {
     const [NIC, setNIC] = useState("");
     const [hospitals, setHospitals] = useState([]);
     const [passwordMatch, setPasswordMatch] = useState(true);
+    console.log(doctorID);
     useEffect(() => {
         const getDoctorDetails = async () => {
             try {
@@ -50,15 +51,12 @@ function UpdateDoctor() {
     }, []);
     console.log(hospitals);
     console.log(first_name);
+
     const handleSubmit = async (e) => {
         console.log("hospital id", Hospital);
-        if (password !== confirm_password) {
-            setPasswordMatch(false);
-            return;
-        }
         e.preventDefault();
         try {
-            const response = await axios.post(`${baseUrl}/doctor`, { first_name, last_name, email, username, password, specialization, hospitalID: Hospital, NIC });
+            const response = await axios.put(`${baseUrl}/doctor/${doctorID}`, { first_name, last_name, email, username, specialization, hospitalID: Hospital, NIC });
             if (response) {
                 console.log(response);
             }
@@ -91,7 +89,7 @@ function UpdateDoctor() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                         Last Name
                                     </label>
-                                    <input onChange={(e) => setLast_name(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Last name" />
+                                    <input value={last_name} onChange={(e) => setLast_name(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Last name" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -99,7 +97,7 @@ function UpdateDoctor() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Email
                                     </label>
-                                    <input onChange={(e) => setEmail(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Email" />
+                                    <input value={email} onChange={(e) => setEmail(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Email" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -107,7 +105,7 @@ function UpdateDoctor() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Specialization
                                     </label>
-                                    <input onChange={(e) => setSpecialization(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Specialization" />
+                                    <input value={specialization} onChange={(e) => setSpecialization(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Specialization" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -115,7 +113,7 @@ function UpdateDoctor() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         NIC
                                     </label>
-                                    <input onChange={(e) => setNIC(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="NIC" />
+                                    <input value={NIC} onChange={(e) => setNIC(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="NIC" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -123,7 +121,7 @@ function UpdateDoctor() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Username
                                     </label>
-                                    <input onChange={(e) => setUsername(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Username" />
+                                    <input value={username} onChange={(e) => setUsername(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Username" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -131,18 +129,7 @@ function UpdateDoctor() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Password
                                     </label>
-                                    <input onChange={(e) => setPassword(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************" />
-                                </div>
-                            </div>
-                            <div class="flex flex-wrap -mx-3 mb-6">
-                                <div class="w-full px-3">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-                                        Confirm Password
-                                    </label>
-                                    <input onChange={(e) => setConfirm_password(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************" />
-                                    {passwordMatch ? <p></p> :
-                                        <p class="text-red-600 text-xs italic">Password not matching</p>
-                                    }
+                                    <input value={"asd123"} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -151,7 +138,7 @@ function UpdateDoctor() {
                                         Hospital
                                     </label>
                                     <div class="relative">
-                                        <select onChange={(e) => setHospital(e.target.value)} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                                        <select value={Hospital} onChange={(e) => setHospital(e.target.value)} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                             {hospitals.map((hospital) => (
                                                 <option value={hospital._id}>{hospital.name}</option>
                                             ))}

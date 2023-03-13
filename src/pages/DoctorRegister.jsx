@@ -1,9 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { baseUrl } from '../App';
 import Header from '../Components/Header'
 
 function DoctorRegister() {
+
+  const navidate = useNavigate();
+  const location = useLocation();
+  const hospitalID = location.state.hospitalID;
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
   const [email, setEmail] = useState("");
@@ -15,20 +20,21 @@ function DoctorRegister() {
   const [NIC, setNIC] = useState("");
   const [hospitals, setHospitals] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true);
-  useEffect(() => {
-    const getHospitals = async () => {
-      const response = await axios.get(`${baseUrl}/hospital`);
-      if (response) {
-        console.log("ok");
-        // response.data.map((hospital) => {
-        //   setHospitals((prev) => [...prev, {id: hospital.id, name: hospital.name}]);
-        // });
-        setHospitals(response.data);
-      }
-    }
-    getHospitals();
-  }, []);
+  // useEffect(() => {
+  //   const getHospitals = async () => {
+  //     const response = await axios.get(`${baseUrl}/hospital`);
+  //     if (response) {
+  //       console.log("ok");
+  //       // response.data.map((hospital) => {
+  //       //   setHospitals((prev) => [...prev, {id: hospital.id, name: hospital.name}]);
+  //       // });
+  //       setHospitals(response.data);
+  //     }
+  //   }
+  //   getHospitals();
+  // }, []);
   console.log(hospitals);
+  console.log(hospitalID);
   const handleSubmit = async (e) => {
     console.log("hospital id", Hospital);
     if (password !== confirm_password) {
@@ -37,7 +43,7 @@ function DoctorRegister() {
     }
     e.preventDefault();
     try {
-      const response = await axios.post(`${baseUrl}/doctor`, { first_name, last_name, email, username, password, specialization, hospitalID: Hospital, NIC });
+      const response = await axios.post(`${baseUrl}/doctor`, { first_name, last_name, email, username, password, specialization, hospitalID: hospitalID, NIC });
       if (response) {
         console.log(response);
       }
@@ -124,7 +130,7 @@ function DoctorRegister() {
                   }
                 </div>
               </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
+              {/* <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                   <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                     Hospital
@@ -140,7 +146,7 @@ function DoctorRegister() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div class="flex items-center justify-between mb-6">
                 <button onClick={(e) => { handleSubmit(e) }} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                   Sign Up
