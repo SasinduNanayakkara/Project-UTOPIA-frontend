@@ -8,6 +8,8 @@ function PatientRegister() {
     const location = useLocation();
     const navigate = useNavigate();
     const wardID = location.state.wardID;
+    const HospitalID = location.state.HospitalID;
+
     const [name, setName] = useState("");
     const [bloodType, setBloodType] = useState("");
     const [gender, setGender] = useState("male");
@@ -32,7 +34,7 @@ function PatientRegister() {
 
         e.preventDefault();
         try {
-            const response = await axios.post(`${baseUrl}/patient`, { name, NIC, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID });
+            const response = await axios.post(`${baseUrl}/patient`, { name, NIC, bloodType, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID, hospital: HospitalID });
             if (response) {
                 console.log(response);
             }

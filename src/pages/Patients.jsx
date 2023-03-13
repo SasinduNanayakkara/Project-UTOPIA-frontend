@@ -26,6 +26,7 @@ function Patients() {
   const navigate = useNavigate();
   const location = useLocation();
   const wardID = location.state.wardID;
+  const HospitalID = location.state.HospitalID;
   console.log(wardID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -74,7 +75,11 @@ function Patients() {
   }
 
   const navigatePatientRegister = (e) => {
-    navigate('/patientRegister', { state: { wardID: wardID }})
+    navigate('/patientRegister', { state: { wardID: wardID, HospitalID: HospitalID }})
+  }
+
+  const navigateToPatientUpdate = (event, rowData) => {
+    navigate('/patientUpdate', { state: { wardID: wardID, patientID: rowData._id, HospitalID: HospitalID } })
   }
   const PatientTitle = <span className='font-bold'>Hospital Name</span>
 
@@ -108,8 +113,8 @@ function Patients() {
             },
             {
               icon: '📝',
-              tooltip: 'Edit Hospital',
-              onClick: (event, rowData) => { }
+              tooltip: 'Edit Patient',
+              onClick: (event, rowData) => { navigateToPatientUpdate(event, rowData) }
             },
             {
               icon: '🗑',
