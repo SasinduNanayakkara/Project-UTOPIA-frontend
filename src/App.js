@@ -21,6 +21,13 @@ import Medicines from './pages/Medicines';
 import Inventories from './pages/Inventories';
 import InventoryRegister from './pages/InventoryRegister';
 import UpdateDoctor from './pages/UpdateDoctor';
+import Doctors from './pages/Doctors';
+import UpdateNurse from './pages/UpdateNurse';
+import UpdatePatient from './pages/UpdatePatient';
+import IncreaseMedicine from './pages/IncreaseMedicine';
+import DecreaseMedicine from './pages/DecreaseMedicine';
+import IncreaseInventory from './pages/IncreaseInventory';
+import DecreaseInventory from './pages/DecreaseInventory';
 export const baseUrl = "http://localhost:5000/api";
 function App() {
   const router = createBrowserRouter([
@@ -103,7 +110,39 @@ function App() {
     {
       path: "/updateDoctor",
       element: <UpdateDoctor />
-    }
+    },
+    {
+      path: "/doctors",
+      element: <Doctors />
+    },
+    {
+      path: "/nurseUpdate",
+      element: <UpdateNurse />
+    },
+    {
+      path: "/patientUpdate",
+      element: <UpdatePatient />
+    },
+    {
+      path: "/medicineIncrease",
+      element: <IncreaseMedicine />
+    },
+    {
+      path: "/medicineDecrease",
+      element: <DecreaseMedicine />
+    },
+    {
+      path: "/inventoryRegister",
+      element: <InventoryRegister />
+    },
+    {
+      path: "/increaseInventory",
+      element: <IncreaseInventory />
+    },
+    {
+      path: "/decreaseInventory",
+      element: <DecreaseInventory />
+    },
   ]);
   return (
     <div className="App">
