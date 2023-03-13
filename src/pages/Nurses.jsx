@@ -73,6 +73,10 @@ function Nurses() {
     navigate('/NurseRegister', { state: { wardID: wardID, HospitalID: HospitalID } })
   }
 
+  const navigateToUpdateNurse = (e, rowData) => {
+    navigate("/nurseUpdate", {state: {wardID: wardID, HospitalID: HospitalID, nurseID: rowData._id} })
+  }
+
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
@@ -86,21 +90,23 @@ function Nurses() {
         <MaterialTable
           icons={tableIcons}
           columns={[
-            { title: 'Nurse Name', field: 'first_name' },
-            { title: 'Location', field: 'location' },
+            { title: 'First Name', field: 'first_name' },
+            { title: 'Last Name', field: 'last_name' },
+            { title: 'time Slot', field: 'timeSlot' },
+
           ]}
           data={Nurses}
           title="Nurses"
           actions={[
             {
               icon: '▶',
-              tooltip: 'View Hospital',
+              tooltip: 'View Nurse',
               onClick: (event, rowData) => { navigateToHospital(event, rowData) }
             },
             {
               icon: '📝',
-              tooltip: 'Edit Hospital',
-              onClick: (event, rowData) => { }
+              tooltip: 'Edit Nurse',
+              onClick: (event, rowData) => { navigateToUpdateNurse(event, rowData) }
             },
             {
               icon: '🗑',
