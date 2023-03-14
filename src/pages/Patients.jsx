@@ -83,47 +83,69 @@ function Patients() {
     navigate('/patientUpdate', { state: { wardID: wardID, patientID: rowData._id, HospitalID: HospitalID } })
   }
   const PatientTitle = <span className='font-bold'>Hospital Name</span>
+  const status = <span className='font-bold'>Status</span>
+  const AdmitDate = <span className='font-bold'>Admit Date</span>
+  const Address = <span className='font-bold'>Address</span>
+  const PhoneNumber = <span className='font-bold'>Phone Number</span>
 
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
       <h2 class="mb-10 mt-8 ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Patients</h2>
       <div class="flex items-center justify-between mb-6">
-                <button onClick={(e) => { navigatePatientRegister(e) }} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
+                <button onClick={(e) => { navigatePatientRegister(e) }} class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
                   Add Patient
                 </button>
               </div>
       <div style={{ maxWidth: '90%' }} className="ml-16">
+      <style>
+    {`
+      .MuiTableCell-head {
+        font-size: 15px;
+      }
+    `}
+  </style>
         <MaterialTable
           icons={tableIcons}
           columns={[
             { title: PatientTitle, field: 'name' },
-            { title: 'status', field: 'status' },
-            { title: 'Admit Date', field: 'admit_date' },
-            { title: 'Address', field: 'address' },
-            { title: 'Phone Number', field: 'phone' },
+            { title: status, field: 'status' },
+            { title: AdmitDate, field: 'admit_date' },
+            { title: Address, field: 'address' },
+            { title: PhoneNumber, field: 'phone' },
+            
 
           ]}
           data={Patients}
           title="Patients"
           actions={[
             {
-              icon: '▶',
+              icon: () => (
+                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
+              ),
               tooltip: 'View Patient',
               onClick: (event, rowData) => { navigateToWard(event, rowData) }
             },
             {
-              icon: '📝',
+              icon: () => (
+                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
+              ),
               tooltip: 'Edit Patient',
               onClick: (event, rowData) => { navigateToPatientUpdate(event, rowData) }
             },
             {
-              icon: '🗑',
+              icon: () => (
+                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
+              ),
               tooltip: 'Delete Hospital',
               onClick: (event, rowData) => { }
             }
           ]}
           options={{
+            headerStyle: {
+              backgroundColor: '#012c4f',
+          color: '#FFF'
+            },
             actionsColumnIndex: -1
           }}
         />

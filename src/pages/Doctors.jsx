@@ -71,44 +71,76 @@ function Doctors() {
     navigate('/doctorRegister', { state: { hospitalID: hospitalID } })
   }
 
+  const DoctorFistName = <span className='font-bold'>Doctor First Name</span>
+  const DoctorLastName = <span className='font-bold'>Doctor Last Name</span>
+  const Specialization = <span className='font-bold'>Specialization</span>
+  const Email = <span className='font-bold'>Email</span>
+
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
       <h2 class="mb-10 mt-8 ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Doctors</h2>
       <div class="flex items-center justify-between mb-6">
-                <button onClick={(e) => { navigateDoctorRegister(e) }} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
+                <button onClick={(e) => { navigateDoctorRegister(e) }} class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
                   Add Doctors
                 </button>
               </div>
       <div style={{ maxWidth: '90%' }} className="ml-16">
+      <style>
+    {`
+      .MuiTableCell-head {
+        font-size: 15px;
+      }
+    `}
+  </style>
         <MaterialTable
           icons={tableIcons}
-          columns={[
-            { title: 'Doctor Fist Name', field: 'first_name' },
-            { title: 'Doctor Last Name', field: 'last_name' },
-            { title: 'Specialization', field: 'specialization' },
-            { title: 'Email', field: 'email' },
-          ]}
+          columns={
+            [
+            { 
+              title: DoctorFistName, field: 'first_name'
+            },
+            { 
+              title: DoctorLastName, field: 'last_name' 
+            },
+            { 
+              title: Specialization, field: 'specialization' 
+            },
+            { 
+              title: Email, field: 'email' 
+            },
+          ]
+        }
           data={Doctors}
           title="Doctors"
           actions={[
             {
-              icon: '▶',
+              icon: () => (
+                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
+              ),
               tooltip: 'View Doctor',
               onClick: (event, rowData) => { }
             },
             {
-              icon: '📝',
+              icon: () => (
+                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
+              ),
               tooltip: 'Edit Doctor',
               onClick: (event, rowData) => { navigateToDoctorUpdate(event, rowData) }
             },
             {
-              icon: '🗑',
+              icon: () => (
+                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
+              ),
               tooltip: 'Delete Hospital',
               onClick: (event, rowData) => { }
             }
           ]}
           options={{
+            headerStyle: {
+              backgroundColor: '#012c4f',
+          color: '#FFF'
+            },
             actionsColumnIndex: -1
           }}
         />
