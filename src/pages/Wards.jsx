@@ -73,6 +73,9 @@ function Wards() {
     navigate('/wardRegister', { state: { hospitalId: hospitalID } })
   }
 
+  const HospitalName = <span className='font-bold'>Hospital Name</span>
+  const Location = <span className='font-bold'>Location</span>
+
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
@@ -83,32 +86,49 @@ function Wards() {
         </button>
       </div>
       <div style={{ maxWidth: '90%' }} className="ml-16">
+      <style>
+    {`
+      .MuiTableCell-head {
+        font-size: 15px;
+      }
+    `}
+  </style>
         <MaterialTable
           icons={tableIcons}
           columns={[
-            { title: 'Hospital Name', field: 'name' },
-            { title: 'Location', field: 'location' },
+            { title: HospitalName, field: 'name' },
+            { title: Location, field: 'location' },
           ]}
           data={Wards}
           title="Wards"
           actions={[
             {
-              icon: '▶',
+              icon: () => (
+                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
+              ),
               tooltip: 'View ward',
               onClick: (event, rowData) => { navigateToWard(event, rowData) }
             },
             {
-              icon: '📝',
+              icon: () => (
+                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
+              ),
               tooltip: 'Edit Hospital',
               onClick: (event, rowData) => { }
             },
             {
-              icon: '🗑',
+              icon: () => (
+                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
+              ),
               tooltip: 'Delete Hospital',
               onClick: (event, rowData) => { }
             }
           ]}
           options={{
+            headerStyle: {
+              backgroundColor: '#012c4f',
+          color: '#FFF'
+            },
             actionsColumnIndex: -1
           }}
         />
