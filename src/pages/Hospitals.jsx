@@ -21,6 +21,7 @@ import axios from 'axios';
 import { baseUrl } from '../App';
 import { useNavigate } from 'react-router-dom';
 
+
 function Hospitals() {
 
   const [hospitals, setHospitals] = useState([]);
@@ -69,42 +70,62 @@ function Hospitals() {
     navigate('/hospitalRegister')
   }
 
+  const HospitalName = <span className='font-bold'>Hospital Name</span>
+  const Location = <span className='font-bold'>Location</span>
+
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
       <h2 class="mb-10 mt-8 ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Hospitals</h2>
       <div class="flex items-center justify-between mb-6">
-                <button onClick={(e) => { navigateHospitalRegister(e) }} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
+                <button onClick={(e) => { navigateHospitalRegister(e) }} class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
                   Add Hospital
                 </button>
               </div>
       <div style={{ maxWidth: '90%' }} className="ml-16">
+      <style>
+    {`
+      .MuiTableCell-head {
+        font-size: 15px;
+      }
+    `}
+  </style>
         <MaterialTable
           icons={tableIcons}
           columns={[
-            { title: 'Hospital Name', field: 'name' },
-            { title: 'Location', field: 'location' },
+            { title: HospitalName, field: 'name' },
+            { title: Location, field: 'location' },
           ]}
           data={hospitals}
           title="Hospitals"
           actions={[
             {
-              icon: '▶',
+              icon: () => (
+                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
+              ),
               tooltip: 'View Hospital',
               onClick: (event, rowData) => { navigateToHospital(event, rowData) }
             },
             {
-              icon: '📝',
+              icon: () => (
+                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
+              ),
               tooltip: 'Edit Hospital',
               onClick: (event, rowData) => { }
             },
             {
-              icon: '🗑',
+              icon: () => (
+                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
+              ),
               tooltip: 'Delete Hospital',
               onClick: (event, rowData) => { }
             }
           ]}
           options={{
+            headerStyle: {
+              backgroundColor: '#012c4f',
+          color: '#FFF'
+            },
             actionsColumnIndex: -1
           }}
         />
