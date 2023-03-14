@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { baseUrl } from '../App';
 import Header from '../Components/Header'
+import {} from "../Components/Notification";
 
 function DoctorRegister() {
 
-  const navidate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const hospitalID = location.state.hospitalID;
   const [first_name, setFirst_name] = useState("");
@@ -20,6 +21,7 @@ function DoctorRegister() {
   const [NIC, setNIC] = useState("");
   const [hospitals, setHospitals] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [notify, setNotify] = useState({isOpen:false, message:'', type:''})
   // useEffect(() => {
   //   const getHospitals = async () => {
   //     const response = await axios.get(`${baseUrl}/hospital`);
@@ -46,6 +48,11 @@ function DoctorRegister() {
       const response = await axios.post(`${baseUrl}/doctor`, { first_name, last_name, email, username, password, specialization, hospitalID: hospitalID, NIC });
       if (response) {
         console.log(response);
+        setNotify({
+          isOpen: true,
+          message: 'Submitted Successfull',
+          type: 'success'
+        })
       }
     }
     catch (error) {
@@ -157,6 +164,8 @@ function DoctorRegister() {
         </div>
       </div>
     </section>
+ 
+    
   )
 }
 
