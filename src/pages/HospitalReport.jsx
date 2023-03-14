@@ -8,52 +8,95 @@ function HospitalReport() {
     // const HospitalID = location.state.HospitalID;
     const HospitalID = "6408d47f1bd1a23165fb9d18";
     const [wards, setWards] = useState([]);
-    const [wardIDs, setWardIDs] = useState([]);
-    const [wardName, setWardName] = useState([]);
-    const [no_of_beds, setNo_of_beds] = useState([]);
-    useEffect(() => {
-        const getData = async () => {
-            try {
+    const [patients, setPatients] = useState([]);
+    const newAdmissionCount = [0];
+    const dischargedCount = [0];
+    const transferCount = [0];
+    const deathCount = [0];
+    const missingCount = [0];
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         try {
 
+    //             const response = await axios.get(`${baseUrl}/ward/hospital/${HospitalID}`);
+    //             if (response) {
+    //                 // console.log(response.data);
+    //                 setWards(response.data);
+    //             }
+    //         }
+    //         catch (error) {
+    //             console.log(error);
+    //         }
+    //     }        
+    //     getData();
+    // },[]);
+
+    useEffect(() => {
+        const getWardData = async () => {
+            try {
                 const response = await axios.get(`${baseUrl}/ward/hospital/${HospitalID}`);
                 if (response) {
-                    console.log(response.data);
-                    setWards(response.data);
+                    const newWard = response.data.map((ward) => ({
+                        name: ward.name,
+                        no_of_beds: ward.no_of_beds,
+                        wardID: ward._id
+                    }));
+                    setWards(newWard);
                 }
             }
             catch (error) {
                 console.log(error);
             }
         }
-        getData();
-        if (wards) {
-            wards.map((item) => {
-                console.log("ok ");
-                setWardIDs(wardID=> [...wardID, item._id] );
-                setWardName(name => [...name, item.name]);
-                setNo_of_beds(beds => [...beds, item.no_of_beds]);
-            })
-        }
-    },[]);
+        getWardData();
+    }, []);
 
     useEffect(() => {
-        wardIDs.map((item) => {
-            console.log("map item", item);
-            getPatientData(item);
-        });
-        const getPatientData = async (id) => {
-            const response = await axios.get(`${baseUrl}/patient/ward/${id}`);
-            if (response) {
-                console.log("ok");
-                console.log("patient data", response.data);
-            }
+        const getPatients = async () => {
+            wards.map(async (ward) => {
+                try {
+                    const response = await axios.get(`${baseUrl}/patient/ward/${ward.wardID}`);
+                    if (response) {
+                        const newPatient = response.data.map((patient) => ({
+                            name: patient.name,
+                            age: patient.age,
+                            status: patient.status,
+                            disChargeDate: patient.discharge_date,
+                            ward: patient.ward,
+                            hospital: patient.hospital,
+                            id: patient._id,
+                            updatedAt: patient.updatedAt.substring(0, 10),
+                            createdAt: patient.createdAt.substring(0, 10)
+                        }));
+                        setPatients(newItem => [...newItem, newPatient]);
+                    }
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            });
         }
-    }, [])
-    console.log("IDs",wardIDs);
-    console.log("beds",no_of_beds);
-    console.log("name",wardName);
-    return (
-        <div className="flex flex-col mx-20">
+        getPatients();
+    }, [wards]);
+
+    const getCounts = () => {
+        console.log("working");
+        patients.map((patient, index) => {
+            patient.map((item) => {
+                if (item.updatedAt === new Date().toISOString().substring(0, 10) || item.createdAt === new Date().toISOString().substring(0, 10)) {
+                    if (item.status === "admitted") {
+                        newAdmissionCount[index] += 1;
+                        console.log("newAdmissionCount", newAdmissionCount[index]);
+                    }
+                }
+            });
+        });
+    }
+
+    // console.log( "all wards", wards);
+    // console.log("all patients", patients);
+            return (
+                <div className="flex flex-col mx-20">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
@@ -142,6 +185,7 @@ function HospitalReport() {
                     </div>
                 </div>
             </div>
+            <button onClick={(e) => getCounts(e)}>click</button>
         </div>
     )
 }
