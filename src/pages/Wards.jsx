@@ -53,7 +53,7 @@ function Wards() {
       try {
         const response = await axios.get(`${baseUrl}/ward/hospital/${hospitalID}`);
         if (response.status === 200) {
-            console.log(response.data);
+          console.log(response.data);
           setWards(response.data);
         }
       }
@@ -70,7 +70,7 @@ function Wards() {
   }
 
   const navigateWardRegister = (e) => {
-    navigate('/wardRegister', { state: { hospitalId: hospitalID }})
+    navigate('/wardRegister', { state: { hospitalId: hospitalID } })
   }
 
   return (
@@ -78,10 +78,10 @@ function Wards() {
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
       <h2 class="mb-10 mt-8 ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Wards</h2>
       <div class="flex items-center justify-between mb-6">
-                <button onClick={(e) => { navigateWardRegister(e) }} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
-                  Add Ward
-                </button>
-              </div>
+        <button onClick={(e) => { navigateWardRegister(e) }} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
+          Add Ward
+        </button>
+      </div>
       <div style={{ maxWidth: '90%' }} className="ml-16">
         <MaterialTable
           icons={tableIcons}

@@ -56,6 +56,7 @@ function Patients() {
             console.log(response.data);
             response.data.forEach(element => {
                 if (element.admit_date) {
+                  console.log(element.admit_date);
                     element.admit_date = element.admit_date.substring(0, 10);
                 }
             });

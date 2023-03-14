@@ -6,8 +6,8 @@ function WardDashboard() {
     const navigate = useNavigate();
     const HospitalID = location.state.HospitalID;
     const wardID = location.state.wardID;
-    const wardName = location.state.wardName;
-    const no_of_beds = location.state.no_of_beds;
+    // const wardName = location.state.wardName;
+    // const no_of_beds = location.state.no_of_beds;
     console.log("ward", wardID);
     console.log("hospital ID", HospitalID);
     const navigateToPatients = (e) => {
@@ -27,7 +27,6 @@ function WardDashboard() {
   return (
     <div>
         <h1>WardDashboard</h1>
-        <h1>{wardName}</h1>
         <h1>{wardID}</h1>
         <button onClick={(e) => navigateToPatients(e)}>Patients</button>
         <br />

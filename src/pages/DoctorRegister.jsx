@@ -46,6 +46,7 @@ function DoctorRegister() {
       const response = await axios.post(`${baseUrl}/doctor`, { first_name, last_name, email, username, password, specialization, hospitalID: hospitalID, NIC });
       if (response) {
         console.log(response);
+        
       }
     }
     catch (error) {
