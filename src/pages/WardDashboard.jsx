@@ -9,24 +9,20 @@ import SergicalImg from "../Asserts/serge.jpg";
 import Ward from "../Asserts/ward.jpg";
 
 function WardDashboard() {
-	const location = useLocation();
-	const navigate = useNavigate();
-	const HospitalID = location.state.HospitalID;
-	const wardID = location.state.wardID;
-	const wardName = location.state.wardName;
-	const no_of_beds = location.state.no_of_beds;
-	console.log("ward", wardID);
-	console.log("hospital ID", HospitalID);
-	const navigateToPatients = (e) => {
-		navigate("/patients", {
-			state: { wardID: wardID, HospitalID: HospitalID },
-		});
-	};
-	const navigateToNurses = (e) => {
-		navigate("/nurses", {
-			state: { wardID: wardID, HospitalID: HospitalID },
-		});
-	};
+    const location = useLocation();
+    const navigate = useNavigate();
+    const HospitalID = location.state.HospitalID;
+    const wardID = location.state.wardID;
+    // const wardName = location.state.wardName;
+    // const no_of_beds = location.state.no_of_beds;
+    console.log("ward", wardID);
+    console.log("hospital ID", HospitalID);
+    const navigateToPatients = (e) => {
+        navigate('/patients', { state: { wardID: wardID, HospitalID: HospitalID } });
+    }
+    const navigateToNurses = (e) => {
+      navigate('/nurses', { state: { wardID: wardID, HospitalID: HospitalID } });
+  }
 
 	const navigateToInventory = (e) => {
 		navigate("/inventories", { state: { wardID: wardID } });
@@ -60,7 +56,7 @@ function WardDashboard() {
 
 									<div className="w-3/4 mb-10 mt-12">
 										<h6 className="text-center mb-10 mt-8 ml-10 text-3xl font-semibold leading-none tracking-tight text-gray-900 md:text-2xl py-2 rounded shadow-lg">
-											{wardName} {wardID}
+											 {wardID}
 											<br />
 											Details
 										</h6>

@@ -29,7 +29,7 @@ function UpdateNurse() {
                     console.log(" wards ok");
                     setWards(wardResponse.data);
                 }
-                const PatientResponse = await axios.get(`${baseUrl}/patient/${nurseID}`);
+                const PatientResponse = await axios.get(`${baseUrl}/nurse/${nurseID}`);
                 if (PatientResponse) {
                     console.log("nurse data ok");
                     setFirst_name(PatientResponse.data.first_name);
@@ -77,7 +77,7 @@ function UpdateNurse() {
                     <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
                         <form class="w-full max-w-lg">
                             <div class="flex flex-wrap -mx-3 mb-6">
-                                <h2 class="mb-10 mt-5 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Update Doctor Details</h2>
+                                <h2 class="mb-10 mt-5 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Update Nurse Details</h2>
                                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                         First Name
