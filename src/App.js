@@ -28,6 +28,7 @@ import IncreaseMedicine from './pages/IncreaseMedicine';
 import DecreaseMedicine from './pages/DecreaseMedicine';
 import IncreaseInventory from './pages/IncreaseInventory';
 import DecreaseInventory from './pages/DecreaseInventory';
+import HospitalReport from './pages/HospitalReport';
 export const baseUrl = "http://localhost:5000/api";
 function App() {
   const router = createBrowserRouter([
@@ -143,6 +144,10 @@ function App() {
       path: "/decreaseInventory",
       element: <DecreaseInventory />
     },
+    {
+      path: "/hospitalReport",
+      element: <HospitalReport />
+    }
   ]);
   return (
     <div className="App">
