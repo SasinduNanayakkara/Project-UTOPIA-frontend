@@ -27,10 +27,14 @@ function IncreaseInventory() {
             const response = await axios.put(`${baseUrl}/inventory/increase/${medicineID}`, { qty: parseInt(quantity) });
             if (response) {
                 console.log(response);
+                alert("Inventory Increased Successfully");
+                navigate('/inventories', { state: { wardID: wardID } });
             }
         }
         catch (error) {
             console.log(error);
+            alert("Inventory Increase Failed");
+            navigate('/inventories', { state: { wardID: wardID } });
         }
     }
     console.log(location.state.wardID);

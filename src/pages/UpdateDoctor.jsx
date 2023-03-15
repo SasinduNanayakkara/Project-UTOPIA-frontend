@@ -8,6 +8,7 @@ function UpdateDoctor() {
     const navigate = useNavigate();
     const location = useLocation();
     const doctorID = location.state.id;
+    const hospitalID = location.state.hospitalID;
     const [first_name, setFirst_name] = useState("");
     const [last_name, setLast_name] = useState("");
     const [email, setEmail] = useState("");
@@ -59,10 +60,14 @@ function UpdateDoctor() {
             const response = await axios.put(`${baseUrl}/doctor/${doctorID}`, { first_name, last_name, email, username, specialization, hospitalID: Hospital, NIC });
             if (response) {
                 console.log(response);
+                alert("Doctor Updated Successfully");
+                navigate("/doctors", { state: { hospitalID: hospitalID } });  
             }
         }
         catch (error) {
             console.log(error);
+            alert("Error Updating Doctor");
+            navigate("/doctors", { state: { hospitalID: hospitalID } });
         }
     }
 

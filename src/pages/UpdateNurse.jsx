@@ -59,10 +59,14 @@ function UpdateNurse() {
             const response = await axios.put(`${baseUrl}/nurse/${nurseID}`, { first_name, last_name, email, username, role, hospitalID: Hospital, ward, timeSlot });
             if (response) {
                 console.log(response);
+                alert("Nurse Updated Successfully");
+                navigate("/nurse", { state: { HospitalID: hospitalID, wardID: wardID } });
             }
         }
         catch (error) {
             console.log(error);
+            alert("Nurse Update Failed");
+            navigate("/nurse", { state: { HospitalID: hospitalID, wardID: wardID } });
         }
     }
 

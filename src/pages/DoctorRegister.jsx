@@ -50,13 +50,17 @@ function DoctorRegister() {
         console.log(response);
         setNotify({
           isOpen: true,
-          message: 'Submitted Successfull',
+          message: 'Submitted Successful',
           type: 'success'
         })
+        alert("Doctor Registration Successful");
+        navigate("/doctors", { state: { hospitalID: hospitalID } });
       }
     }
     catch (error) {
       console.log(error);
+      alert("Doctor Registration Failed");
+      navigate("/doctors", { state: { hospitalID: hospitalID } });
     }
   }
 

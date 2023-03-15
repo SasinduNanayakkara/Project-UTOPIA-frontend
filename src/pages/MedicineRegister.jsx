@@ -35,7 +35,9 @@ function MedicineRegister() {
                     isOpen: true,
                     message: "Medicine Registered Successfully",
                     type: "success",
-                })
+                });
+                alert("Medicine Registered Successfully");
+                navigate("/medicines", { state: { wardID: location.state.wardID } });
             }
         }
         catch (error) {

@@ -64,7 +64,7 @@ function Doctors() {
   console.log(Doctors);
 
   const navigateToDoctorUpdate = (event, rowData) => {
-    navigate('/updateDoctor', { state: { data: rowData, id: rowData._id } })
+    navigate('/updateDoctor', { state: { data: rowData, id: rowData._id, hospitalID: hospitalID } })
   }
 
   const navigateDoctorRegister = (e) => {

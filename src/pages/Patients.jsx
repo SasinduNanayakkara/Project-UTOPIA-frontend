@@ -137,8 +137,8 @@ function Patients() {
               icon: () => (
                 <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
               ),
-              tooltip: 'Delete Hospital',
-              onClick: (event, rowData) => { }
+              tooltip: 'Delete Patient',
+              onClick: (event, rowData) => { alert("Sorry, You can't delete this patient") }
             }
           ]}
           options={{

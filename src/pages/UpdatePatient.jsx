@@ -49,7 +49,6 @@ function UpdatePatient() {
                     setBloodType(NurseResponse.data.blood_type);
                     setGender(NurseResponse.data.gender);
                     setPulse(NurseResponse.data.pulse);
-                    setWard(NurseResponse.data.ward);
                     setWeight(NurseResponse.data.weight);
                     setHeight(NurseResponse.data.height);
                     setComplain(NurseResponse.data.complain);
@@ -64,6 +63,11 @@ function UpdatePatient() {
                     setDischarge_date(NurseResponse.data.discharge_date);
                     setWard(NurseResponse.data.ward);
                 }
+                wards.map((wardItem) => {
+                    if (wardItem._id === ward) {
+                        setWard(ward.name);
+                    }
+                });
             }
             catch (error) {
                 console.log(error);
@@ -81,10 +85,14 @@ function UpdatePatient() {
             const response = await axios.put(`${baseUrl}/patient/${patientID}`, { name, NIC, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID });
             if (response) {
                 console.log(response);
+                alert("Patient Updated Successfully");
+                navigate("/patients", { state: { HospitalID: hospitalID }});
             }
         }
         catch (error) {
             console.log(error);
+            alert("Patient Update Failed");
+            navigate("/patients", { state: { HospitalID: hospitalID }});
         }
     }
 

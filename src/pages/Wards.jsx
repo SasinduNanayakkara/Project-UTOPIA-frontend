@@ -74,14 +74,14 @@ function Wards() {
   }
 
   const HospitalName = <span className='font-bold'>Hospital Name</span>
-  const Location = <span className='font-bold'>Location</span>
+  const Location = <span className='font-bold'>Number of Beds</span>
 
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
       <h2 class="mb-10 mt-8 ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Wards</h2>
       <div class="flex items-center justify-between mb-6">
-        <button onClick={(e) => { navigateWardRegister(e) }} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
+        <button onClick={(e) => { navigateWardRegister(e) }} class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
           Add Ward
         </button>
       </div>
@@ -97,7 +97,7 @@ function Wards() {
           icons={tableIcons}
           columns={[
             { title: HospitalName, field: 'name' },
-            { title: Location, field: 'location' },
+            { title: Location, field: 'no_of_beds' },
           ]}
           data={Wards}
           title="Wards"
@@ -113,15 +113,15 @@ function Wards() {
               icon: () => (
                 <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
               ),
-              tooltip: 'Edit Hospital',
-              onClick: (event, rowData) => { }
+              tooltip: 'Edit ward',
+              onClick: (event, rowData) => { alert("Sorry, You can't edit this ward") }
             },
             {
               icon: () => (
                 <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
               ),
-              tooltip: 'Delete Hospital',
-              onClick: (event, rowData) => { }
+              tooltip: 'Delete ward',
+              onClick: (event, rowData) => { alert("Sorry, You can't delete this ward") }
             }
           ]}
           options={{

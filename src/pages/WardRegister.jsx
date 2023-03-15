@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { baseUrl } from '../App';
 import Header from '../Components/Header'
 
 function WardRegister() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [hospitalID, setHospitalID] = useState("");
   const [no_of_beds, setNo_of_beds] = useState("");
@@ -19,10 +20,14 @@ function WardRegister() {
       const response = await axios.post(`${baseUrl}/ward`, { name, hospitalID, no_of_beds});
       if (response) {
         console.log(response);
+        alert("Ward Registered Successfully");
+        navigate("/wards", { state: { hospitalId: hospitalID } });
       }
     }
     catch (error) {
       console.log(error);
+      alert("Error in Registering Ward");
+      navigate("/wards", { state: { hospitalId: hospitalID } });
     }
   }
 console.log(location.state.hospitalId);

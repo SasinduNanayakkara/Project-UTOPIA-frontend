@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../App';
 import Header from '../Components/Header'
+import Assert from '../Asserts/Asset-1.png'
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -29,20 +30,27 @@ const Login = () => {
         console.log(localStorage.getItem("ID"));
 
         if (response.data.data.role === "admin") {
+          alert("Login Successful");
           navigate("/adminDashboard");
         }
         else if (response.data.data.role === "doctor") {
+          alert("Login Successful");
           navigate("/doctorDashboard");
         }
         else if (response.data.data.role === "nurse") {
+          alert("Login Successful");
           navigate("/nurseDashboard");
         }
         else if (response.data.data.role === "ward manager") {
+          alert("Login Successful");
           navigate("/WardDashboard", { state: { wardID: response.data.data.ward, HospitalID: response.data.data.hospitalID } });
+        }
+        else {
         }
       }
     }
     catch (err) {
+      alert("Username or Password is incorrect")
       console.log(err);
     }
   }
@@ -52,7 +60,7 @@ const Login = () => {
       <div className="h-full">
         <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
           <div className="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
-            <img src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="w-full" alt="Sample image" />
+            <img src={Assert} className="w-full" alt="Sample image" />
           </div>
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
             <form className='mr-16'>

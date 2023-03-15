@@ -27,6 +27,8 @@ function IncreaseMedicine() {
             const response = await axios.put(`${baseUrl}/inventory/increase/${medicineID}`, { qty: parseInt(quantity) });
             if (response) {
                 console.log(response);
+                alert("Medicine Increased Successfully");
+                navigate('/medicines', { state: { wardID: wardID } });
             }
         }
         catch (error) {

@@ -65,7 +65,7 @@ function Inventories() {
   console.log(Inventories);
 
   const navigateToInventory = (event, rowData) => {
-    navigate('/hospitalDashboard', { state: { name: rowData.name, quantity: rowData.quantity, id: rowData._id } })
+    // navigate('/hospitalDashboard', { state: { name: rowData.name, quantity: rowData.quantity, id: rowData._id } })
   }
 
   const navigateInventoryRegister = (e) => {
@@ -113,23 +113,23 @@ function Inventories() {
           actions={[
             {
               icon: () => (
-                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
+                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>Request</span>
               ),
-              tooltip: 'View Hospital',
+              tooltip: 'Request Inventory',
               onClick: (event, rowData) => { navigateToInventory(event, rowData) }
             },
             {
               icon: () => (
-                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
+                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Add</span>
               ),
-              tooltip: 'Add more Inventory',
+              tooltip: 'Add more Inventories',
               onClick: (event, rowData) => { navigateToIncenseInventory(event, rowData) }
             },
             {
               icon: () => (
-                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
+                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Decrease</span>
               ),
-              tooltip: 'Delete Hospital',
+              tooltip: 'Decrease Inventories',
               onClick: (event, rowData) => { navigateToDecreaseInventory(event, rowData) }
             }
           ]}

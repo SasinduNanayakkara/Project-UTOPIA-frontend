@@ -24,10 +24,14 @@ function InventoryRegister() {
             const response = await axios.post(`${baseUrl}/inventory`, { serial_number, name, type, quantity, ward: wardID, });
             if (response) {
                 console.log(response);
+                alert("Inventory Added Successfully");
+                navigate("/inventory", { state: { wardID: wardID } });
             }
         }
         catch (error) {
             console.log(error);
+            alert("Error in Adding Inventory");
+            navigate("/inventory", { state: { wardID: wardID } });
         }
     }
     console.log(location.state.wardID);

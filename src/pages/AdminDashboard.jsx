@@ -16,11 +16,11 @@ const AdminDashbaord = () => {
 	console.log("RoleID: " + id);
 
 	const DoctorNav = () => {
-		navigate("/doctorDashboard");
+		navigate("/doctors");
 	};
 
 	const HospitalNav = () => {
-		navigate("/");
+		navigate("/hospitals");
 	};
 
 	// const InventoryNav = () => {

@@ -13,9 +13,9 @@ const Header = ({first_name, username}) => {
             localStorage.removeItem("email")
             localStorage.removeItem("id")
             localStorage.removeItem("token")
-            navigate("/login")
+            navigate("/")
         } else {
-            navigate("/login")
+            navigate("/")
         }
     }
   return (
