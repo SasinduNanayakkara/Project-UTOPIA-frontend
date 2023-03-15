@@ -35,7 +35,7 @@ const Login = () => {
         }
         else if (response.data.data.role === "doctor") {
           alert("Login Successful");
-          navigate("/doctorDashboard");
+          navigate("/doctorDashboard", { state: { hospitalID: response.data.data.hospitalID } });
         }
         else if (response.data.data.role === "nurse") {
           alert("Login Successful");

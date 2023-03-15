@@ -1,16 +1,23 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Components/Header'
 import DocImg from "../Asserts/doc1.jpg";
 import Doctors from "../Asserts/Doc.jpg";
+import Ward from "../Asserts/ward.jpg";
 
 
 function DoctorDashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const hospitalID = location.state.hospitalID;
   console.log("ID", localStorage.getItem("ID"));
 
   const navigateToDoctorUpdate = (e) => {
     navigate('/updateDoctor', { state: { ID: localStorage.getItem("ID") } });
+  }
+
+  const navigateToWards = (e) => {
+    navigate('/wards', { state: { hospitalID: hospitalID } });
   }
 
   return (
@@ -58,7 +65,24 @@ function DoctorDashboard() {
                         />
                       </div>
                     </div>
-                    
+                    <div className="my-10 flex flex-row">
+													<div className="flex flex-row bg-blue-600 h-20 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
+														<button
+															onClick={
+																navigateToWards
+															}
+															class="bg-button-blue h-20 hover:bg-button-hover-blue text-white font-bold text-lg px-[11.06rem] rounded">
+															Wards
+														</button>
+														<img
+															src={
+																Ward
+															}
+															className="mt-1 h-20 w-35"
+															alt="timetable"
+														/>
+													</div>
+												</div>
                    
                   </div>
                 </div>
