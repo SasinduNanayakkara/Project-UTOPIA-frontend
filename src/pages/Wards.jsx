@@ -66,6 +66,7 @@ function Wards() {
   console.log(Wards);
 
   const navigateToWard = (event, rowData) => {
+    console.log(rowData.name);
     navigate('/wardDashboard', { state: { HospitalID: hospitalID, wardID: rowData._id, wardName: rowData.name, no_of_beds: rowData.no_of_beds } })
   }
 

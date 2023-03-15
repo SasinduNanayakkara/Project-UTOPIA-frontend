@@ -43,7 +43,7 @@ const Login = () => {
         }
         else if (response.data.data.role === "ward manager") {
           alert("Login Successful");
-          navigate("/WardDashboard", { state: { wardID: response.data.data.ward, HospitalID: response.data.data.hospitalID } });
+          navigate("/WardDashboard", { state: { wardID: response.data.data.ward,  HospitalID: response.data.data.hospitalID } });
         }
         else {
         }

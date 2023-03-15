@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
 import Patients from "../Asserts/patients.jpg";
@@ -7,16 +7,29 @@ import Inventories from "../Asserts/Inventory.png";
 import Medicines from "../Asserts/Medicine.png";
 import SergicalImg from "../Asserts/serge.jpg";
 import Ward from "../Asserts/ward.jpg";
+import axios from "axios";
+import { baseUrl } from "../App";
 
 function WardDashboard() {
     const location = useLocation();
     const navigate = useNavigate();
     const HospitalID = location.state.HospitalID;
     const wardID = location.state.wardID;
-    // const wardName = location.state.wardName;
+	const [wardName, setWardName] = useState("");
     // const no_of_beds = location.state.no_of_beds;
     console.log("ward", wardID);
     console.log("hospital ID", HospitalID);
+
+	useEffect(() => {
+		const getWardData = async () => {
+			const response = await axios.get(`${baseUrl}/ward/${wardID}`);
+			if (response) {
+				setWardName(response.data.name);
+			}
+		}
+		getWardData();
+	},[]);
+	console.log("ward name", wardName);
     const navigateToPatients = (e) => {
         navigate('/patients', { state: { wardID: wardID, HospitalID: HospitalID } });
     }
@@ -30,8 +43,8 @@ function WardDashboard() {
 	const navigateToMedicine = (e) => {
 		navigate("/medicines", { state: { wardID: wardID } });
 	};
-	const navigateToSergicalInventories = (e) => {
-		navigate("/sergicalInventories", { state: { wardID: wardID } });
+	const navigateToSurgicalInventories = (e) => {
+		navigate("/surgicalInventories", { state: { wardID: wardID } });
 	};
 
 	return (
@@ -54,11 +67,10 @@ function WardDashboard() {
 										</h2>
 									</div>
 
-									<div className="w-3/4 mb-10 mt-12">
+									<div className="w-3/4 mb-10 mt-12 ">
 										<h6 className="text-center mb-10 mt-8 ml-10 text-3xl font-semibold leading-none tracking-tight text-gray-900 md:text-2xl py-2 rounded shadow-lg">
-											 {wardID}
-											<br />
-											Details
+											Ward Name: {wardName}
+											
 										</h6>
 									</div>
 									<div className="bg-white w-[65%] h-auto p-14 rounded-xl mt-10 mb-10 mr-10 ml-10">
@@ -134,10 +146,10 @@ function WardDashboard() {
 													<div className="flex flex-row bg-blue-900 h-20 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
 														<button
 															onClick={
-																navigateToSergicalInventories
+																navigateToSurgicalInventories
 															}
 															class="bg-button-blue h-20 hover:bg-button-hover-blue text-white font-bold text-lg px-[10.76rem] rounded">
-															Sergical Inventories
+															Surgical Inventories
 														</button>
 														<img
 															src={
