@@ -29,6 +29,10 @@ import DecreaseMedicine from './pages/DecreaseMedicine';
 import IncreaseInventory from './pages/IncreaseInventory';
 import DecreaseInventory from './pages/DecreaseInventory';
 import HospitalReport from './pages/HospitalReport';
+import SurgicalInventories from './pages/SurgicalInventories';
+import SurgicalInventoryRegister from './pages/SurgicalInventoryRegister';
+import IncreaseSurgicalInventory from './pages/IncreaseSurgicalInventory';
+import DecreaseSurgicalInventory from './pages/DecreaseSurgicalInventory';
 export const baseUrl = "http://localhost:5000/api";
 function App() {
   const router = createBrowserRouter([
@@ -143,6 +147,22 @@ function App() {
     {
       path: "/hospitalReport",
       element: <HospitalReport />
+    },
+    {
+      path: "/surgicalInventories",
+      element: <SurgicalInventories />
+    },
+    {
+      path: "/surgicalInventoryRegister",
+      element: <SurgicalInventoryRegister />
+    },
+    {
+      path: "/increaseSurgicalInventory",
+      element: <IncreaseSurgicalInventory />
+    },
+    {
+      path: "/decreaseSurgicalInventory",
+      element: <DecreaseSurgicalInventory/>
     }
   ]);
   return (
