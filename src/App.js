@@ -33,6 +33,8 @@ import SurgicalInventories from './pages/SurgicalInventories';
 import SurgicalInventoryRegister from './pages/SurgicalInventoryRegister';
 import IncreaseSurgicalInventory from './pages/IncreaseSurgicalInventory';
 import DecreaseSurgicalInventory from './pages/DecreaseSurgicalInventory';
+import NurseProfile from './pages/NurseProfile';
+import DoctorProfile from './pages/DoctorProfile';
 export const baseUrl = "http://localhost:5000/api";
 function App() {
   const router = createBrowserRouter([
@@ -163,6 +165,14 @@ function App() {
     {
       path: "/decreaseSurgicalInventory",
       element: <DecreaseSurgicalInventory/>
+    },
+    {
+      path: "/nurseProfile",
+      element: <NurseProfile />
+    },
+    {
+      path: "/doctorProfile",
+      element: <DoctorProfile />
     }
   ]);
   return (
