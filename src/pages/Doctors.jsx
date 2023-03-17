@@ -132,7 +132,7 @@ function Doctors() {
               icon: () => (
                 <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
               ),
-              tooltip: 'Delete Hospital',
+              tooltip: 'Delete Doctor',
               onClick: (event, rowData) => { }
             }
           ]}
