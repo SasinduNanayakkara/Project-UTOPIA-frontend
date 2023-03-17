@@ -82,10 +82,11 @@ function Patients() {
   const navigateToPatientUpdate = (event, rowData) => {
     navigate('/patientUpdate', { state: { wardID: wardID, patientID: rowData._id, HospitalID: HospitalID } })
   }
-  const PatientTitle = <span className='font-bold'>Hospital Name</span>
+  const PatientTitle = <span className='font-bold'>Patient Name</span>
   const status = <span className='font-bold'>Status</span>
   const AdmitDate = <span className='font-bold'>Admit Date</span>
   const Address = <span className='font-bold'>Address</span>
+  const NIC = <span className='font-bold'>NIC</span>
   const PhoneNumber = <span className='font-bold'>Phone Number</span>
 
   return (
@@ -112,6 +113,7 @@ function Patients() {
             { title: status, field: 'status' },
             { title: AdmitDate, field: 'admit_date' },
             { title: Address, field: 'address' },
+            { title: NIC, field: 'NIC' },
             { title: PhoneNumber, field: 'phone' },
             
 
