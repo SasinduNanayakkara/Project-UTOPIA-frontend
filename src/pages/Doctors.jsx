@@ -71,6 +71,10 @@ function Doctors() {
     navigate('/doctorRegister', { state: { hospitalID: hospitalID } })
   }
 
+  const navigateToDoctorProfile = (event, rowData) => {
+    navigate('/doctorProfile', { state: { data: rowData, ID: rowData._id, hospitalID: hospitalID } })
+  }
+
   const DoctorFistName = <span className='font-bold'>Doctor First Name</span>
   const DoctorLastName = <span className='font-bold'>Doctor Last Name</span>
   const Specialization = <span className='font-bold'>Specialization</span>
@@ -119,7 +123,7 @@ function Doctors() {
                 <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
               ),
               tooltip: 'View Doctor',
-              onClick: (event, rowData) => { }
+              onClick: (event, rowData) => { navigateToDoctorProfile(event, rowData) }
             },
             {
               icon: () => (
@@ -133,7 +137,7 @@ function Doctors() {
                 <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
               ),
               tooltip: 'Delete Hospital',
-              onClick: (event, rowData) => { }
+              onClick: (event, rowData) => { alert("You don't have permission to delete this Doctor") }
             }
           ]}
           options={{

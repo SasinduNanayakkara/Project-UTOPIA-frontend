@@ -89,7 +89,6 @@ function MedicineRegister() {
                     </div>
                 </div>
             </div>
-            <Notification notify={notify} setNotify={setNotify} />
         </section>
     )
 }

@@ -69,10 +69,11 @@ function Patients() {
     }
     getPatients();
   }, []);
-  console.log(Patients);
+  console.log("wardID", wardID);
+  console.log("HospitalID", HospitalID);
 
   const navigateToWard = (event, rowData) => {
-    // navigate('/wardDashboard', { state: { HospitalId: hospitalId, wardID: rowData._id, wardName: rowData.name, no_of_beds: rowData.no_of_beds } })
+    navigate('/patientProfile', { state: { wardID: wardID, HospitalID: HospitalID, ID: rowData._id } })
   }
 
   const navigatePatientRegister = (e) => {

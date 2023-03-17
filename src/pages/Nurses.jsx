@@ -128,7 +128,7 @@ function Nurses() {
                 <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
               ),
               tooltip: 'Delete Hospital',
-              onClick: (event, rowData) => { }
+              onClick: (event, rowData) => { alert("You don't have permission to delete this Nurse") }
             }
           ]}
           options={{

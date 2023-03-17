@@ -32,60 +32,83 @@ function HospitalReport() {
     //     getData();
     // },[]);
 
+    // useEffect(() => {
+    //     const getWardData = async () => {
+    //         try {
+    //             const response = await axios.get(`${baseUrl}/ward/hospital/${HospitalID}`);
+    //             if (response) {
+    //                 const newWard = response.data.map((ward) => ({
+    //                     name: ward.name,
+    //                     no_of_beds: ward.no_of_beds,
+    //                     wardID: ward._id
+    //                 }));
+    //                 setWards(newWard);
+    //             }
+    //         }
+    //         catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    //     getWardData();
+    // }, []);
+
+    // useEffect(() => {
+    //     const getPatients = async () => {
+    //         wards.map(async (ward) => {
+    //             console.log("1");
+    //             try {
+    //             console.log("2");
+    //                 const response = await axios.get(`${baseUrl}/patient/ward/${ward.wardID}`);
+    //                 if (response) {
+    //             console.log("3");
+    //                     const newPatient = response.data.map((patient) => ({
+    //                         name: patient.name,
+    //                         age: patient.age,
+    //                         status: patient.status,
+    //                         disChargeDate: patient.discharge_date,
+    //                         ward: patient.ward,
+    //                         hospital: patient.hospital,
+    //                         id: patient._id,
+    //                         updatedAt: patient.updatedAt.substring(0, 10),
+    //                         createdAt: patient.createdAt.substring(0, 10)
+    //                     }));
+    //             console.log("4");
+    //                     setPatients(newItem => [...newItem, newPatient]);
+    //                 }
+    //             }
+    //             catch (error) {
+    //                 console.log("5");
+    //                 console.log(error);
+    //             }
+    //         });
+    //     }
+    //     getPatients();
+    // },[]);
+    // console.log("wards", wards);
+    // console.log("patients", patients);
+
+
     useEffect(() => {
-        const getWardData = async () => {
+        const getData = async () => {
             try {
-                const response = await axios.get(`${baseUrl}/ward/hospital/${HospitalID}`);
+                const response = await axios.get(`${baseUrl}/wardPatient/${HospitalID}`);
                 if (response) {
-                    const newWard = response.data.map((ward) => ({
-                        name: ward.name,
-                        no_of_beds: ward.no_of_beds,
-                        wardID: ward._id
-                    }));
-                    setWards(newWard);
+                    console.log(response.data);
+                    response.data.map((ward) => {
+                        ward.patientId.map((patient) => {
+                            console.log("working");
+                            console.log(patient);
+                        });
+                    });
                 }
             }
             catch (error) {
                 console.log(error);
             }
         }
-        getWardData();
-    }, []);
-
-    useEffect(() => {
-        const getPatients = async () => {
-            wards.map(async (ward) => {
-                console.log("1");
-                try {
-                console.log("2");
-                    const response = await axios.get(`${baseUrl}/patient/ward/${ward.wardID}`);
-                    if (response) {
-                console.log("3");
-                        const newPatient = response.data.map((patient) => ({
-                            name: patient.name,
-                            age: patient.age,
-                            status: patient.status,
-                            disChargeDate: patient.discharge_date,
-                            ward: patient.ward,
-                            hospital: patient.hospital,
-                            id: patient._id,
-                            updatedAt: patient.updatedAt.substring(0, 10),
-                            createdAt: patient.createdAt.substring(0, 10)
-                        }));
-                console.log("4");
-                        setPatients(newItem => [...newItem, newPatient]);
-                    }
-                }
-                catch (error) {
-                    console.log("5");
-                    console.log(error);
-                }
-            });
-        }
-        getPatients();
+        getData();
     },[]);
-    console.log("wards", wards);
-    console.log("patients", patients);
+
 
     const getCounts = () => {
         setClick(true);

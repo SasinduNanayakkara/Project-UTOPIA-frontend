@@ -25,13 +25,13 @@ function InventoryRegister() {
             if (response) {
                 console.log(response);
                 alert("Inventory Added Successfully");
-                navigate("/inventory", { state: { wardID: wardID } });
+                navigate("/inventories", { state: { wardID: wardID } });
             }
         }
         catch (error) {
             console.log(error);
             alert("Error in Adding Inventory");
-            navigate("/inventory", { state: { wardID: wardID } });
+            navigate("/inventories", { state: { wardID: wardID } });
         }
     }
     console.log(location.state.wardID);

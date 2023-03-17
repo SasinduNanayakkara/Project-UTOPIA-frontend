@@ -111,14 +111,14 @@ function Hospitals() {
                 <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
               ),
               tooltip: 'Edit Hospital',
-              onClick: (event, rowData) => { }
+              onClick: (event, rowData) => { alert("You don't have permission to update this hospital") }
             },
             {
               icon: () => (
                 <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
               ),
               tooltip: 'Delete Hospital',
-              onClick: (event, rowData) => { }
+              onClick: (event, rowData) => { alert("You don't have permission to delete this hospital") }
             }
           ]}
           options={{

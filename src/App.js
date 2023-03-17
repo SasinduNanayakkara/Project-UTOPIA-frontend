@@ -35,6 +35,7 @@ import IncreaseSurgicalInventory from './pages/IncreaseSurgicalInventory';
 import DecreaseSurgicalInventory from './pages/DecreaseSurgicalInventory';
 import NurseProfile from './pages/NurseProfile';
 import DoctorProfile from './pages/DoctorProfile';
+import PatientProfile from './pages/PatientProfile';
 export const baseUrl = "https://project-utopia-backend.vercel.app/api";
 function App() {
   const router = createBrowserRouter([
@@ -173,6 +174,10 @@ function App() {
     {
       path: "/doctorProfile",
       element: <DoctorProfile />
+    },
+    {
+      path: "/patientProfile",
+      element: <PatientProfile />
     }
   ]);
   return (
