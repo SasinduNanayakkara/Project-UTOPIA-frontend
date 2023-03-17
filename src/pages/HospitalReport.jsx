@@ -9,6 +9,7 @@ function HospitalReport() {
     const HospitalID = "6408d47f1bd1a23165fb9d18";
     const [wards, setWards] = useState([]);
     const [patients, setPatients] = useState([]);
+    const [click, setClick] = useState(false);
     const newAdmissionCount = [0];
     const dischargedCount = [0];
     const transferCount = [0];
@@ -54,9 +55,12 @@ function HospitalReport() {
     useEffect(() => {
         const getPatients = async () => {
             wards.map(async (ward) => {
+                console.log("1");
                 try {
+                console.log("2");
                     const response = await axios.get(`${baseUrl}/patient/ward/${ward.wardID}`);
                     if (response) {
+                console.log("3");
                         const newPatient = response.data.map((patient) => ({
                             name: patient.name,
                             age: patient.age,
@@ -68,21 +72,27 @@ function HospitalReport() {
                             updatedAt: patient.updatedAt.substring(0, 10),
                             createdAt: patient.createdAt.substring(0, 10)
                         }));
+                console.log("4");
                         setPatients(newItem => [...newItem, newPatient]);
                     }
                 }
                 catch (error) {
+                    console.log("5");
                     console.log(error);
                 }
             });
         }
         getPatients();
-    }, [wards]);
+    },[]);
+    console.log("wards", wards);
+    console.log("patients", patients);
 
     const getCounts = () => {
-        console.log("working");
+        setClick(true);
+        console.log("click", click);
         patients.map((patient, index) => {
             patient.map((item) => {
+                console.log("working");
                 if (item.updatedAt === new Date().toISOString().substring(0, 10) || item.createdAt === new Date().toISOString().substring(0, 10)) {
                     if (item.status === "admitted") {
                         newAdmissionCount[index] += 1;
