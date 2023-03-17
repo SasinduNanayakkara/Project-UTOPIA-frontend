@@ -94,12 +94,7 @@ function HospitalReport() {
                 const response = await axios.get(`${baseUrl}/wardPatient/${HospitalID}`);
                 if (response) {
                     console.log(response.data);
-                    response.data.map((ward) => {
-                        ward.patientId.map((patient) => {
-                            console.log("working");
-                            console.log(patient);
-                        });
-                    });
+                    setWards(response.data);
                 }
             }
             catch (error) {
@@ -107,8 +102,9 @@ function HospitalReport() {
             }
         }
         getData();
-    },[]);
+    }, []);
 
+    console.log("wards", wards);
 
     const getCounts = () => {
         setClick(true);
@@ -128,17 +124,18 @@ function HospitalReport() {
 
     // console.log( "all wards", wards);
     // console.log("all patients", patients);
-            return (
-                <div className="flex flex-col mx-20">
+    return (
+        <div className="flex flex-col mx-20">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
                         <table className="min-w-full text-center text-sm font-light">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr>
-                                    <th scope="col" className="px-6 py-4">ClassName</th>
-                                    <th scope="col" className="px-6 py-4">Heading</th>
-                                    <th scope="col" className="px-6 py-4">Heading</th>
+                                <th scope="col" className="px-6 py-4">Details</th>
+                                   { wards.map((ward, index) => (
+                                       <th scope="col" className="px-6 py-4">{ward.wardId}</th>
+                                   ))}
                                 </tr>
                             </thead>
                             <tbody>
