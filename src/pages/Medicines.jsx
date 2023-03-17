@@ -117,21 +117,21 @@ function Medicines() {
               icon: () => (
                 <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>Request</span>
               ),
-              tooltip: 'View Hospital',
+              tooltip: 'View Medicine',
               onClick: (event, rowData) => { navigateToMedicine(event, rowData) }
             },
             {
               icon: () => (
                 <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
               ),
-              tooltip: 'Add More',
+              tooltip: 'Edit Medicine',
               onClick: (event, rowData) => { navigateToMedicineIncrease(event, rowData) }
             },
             {
               icon: () => (
                 <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
               ),
-              tooltip: 'Delete Hospital',
+              tooltip: 'Delete Medicine',
               onClick: (event, rowData) => { navigateToDecreaseMedicine(event, rowData) }
             }
           ]}
