@@ -35,7 +35,7 @@ import IncreaseSurgicalInventory from './pages/IncreaseSurgicalInventory';
 import DecreaseSurgicalInventory from './pages/DecreaseSurgicalInventory';
 import NurseProfile from './pages/NurseProfile';
 import DoctorProfile from './pages/DoctorProfile';
-export const baseUrl = "http://localhost:5000/api";
+export const baseUrl = "https://project-utopia-backend.vercel.app/api";
 function App() {
   const router = createBrowserRouter([
     {

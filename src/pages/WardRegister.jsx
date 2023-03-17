@@ -20,8 +20,12 @@ function WardRegister() {
       const response = await axios.post(`${baseUrl}/ward`, { name, hospitalID, no_of_beds});
       if (response) {
         console.log(response);
-        alert("Ward Registered Successfully");
-        navigate("/wards", { state: { hospitalId: hospitalID } });
+        const WardResponse = await axios.post(`${baseUrl}/wardPatient`, {wardId: response.data._id, hospitalId: hospitalID});
+        if (WardResponse) {
+          console.log(WardResponse);
+          alert("Ward Registered Successfully");
+          navigate("/wards", { state: { hospitalId: hospitalID } });
+        }
       }
     }
     catch (error) {
