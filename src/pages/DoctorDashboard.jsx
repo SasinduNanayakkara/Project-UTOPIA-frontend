@@ -12,8 +12,8 @@ function DoctorDashboard() {
   const hospitalID = location.state.hospitalID;
   console.log("ID", localStorage.getItem("ID"));
 
-  const navigateToDoctorUpdate = (e) => {
-    navigate('/updateDoctor', { state: { ID: localStorage.getItem("ID") } });
+  const navigateToDoctorProfile = (e) => {
+    navigate('/doctorProfile', { state: { ID: localStorage.getItem("ID") } });
   }
 
   const navigateToWards = (e) => {
@@ -51,10 +51,10 @@ function DoctorDashboard() {
                       <div className="flex flex-row bg-blue-900 h-20 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
                         <button
                           onClick={
-                            navigateToDoctorUpdate
+                            navigateToDoctorProfile
                           }
                           class="bg-button-blue h-20 hover:bg-button-hover-blue text-white font-bold px-[11.75rem] rounded">
-                          Update Details
+                          Profile
                         </button>
                         <img
                           src={
