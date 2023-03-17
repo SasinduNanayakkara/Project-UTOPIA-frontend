@@ -39,7 +39,7 @@ const Login = () => {
         }
         else if (response.data.data.role === "nurse") {
           alert("Login Successful");
-          navigate("/nurseDashboard");
+          navigate("/nurseDashboard", { state: { hospitalID: response.data.data.hospital, wardID: response.data.data.ward } } );
         }
         else if (response.data.data.role === "ward manager") {
           alert("Login Successful");
