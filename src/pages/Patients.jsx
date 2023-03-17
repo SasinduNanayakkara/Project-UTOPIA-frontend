@@ -53,13 +53,13 @@ function Patients() {
       try {
         const response = await axios.get(`${baseUrl}/patient/ward/${wardID}`);
         if (response.status === 200) {
-            console.log(response.data);
-            response.data.forEach(element => {
-                if (element.admit_date) {
-                  console.log(element.admit_date);
-                    element.admit_date = element.admit_date.substring(0, 10);
-                }
-            });
+          console.log(response.data);
+          response.data.forEach(element => {
+            if (element.admit_date) {
+              console.log(element.admit_date);
+              element.admit_date = element.admit_date.substring(0, 10);
+            }
+          });
           setPatients(response.data);
         }
       }
@@ -77,7 +77,7 @@ function Patients() {
   }
 
   const navigatePatientRegister = (e) => {
-    navigate('/patientRegister', { state: { wardID: wardID, HospitalID: HospitalID }})
+    navigate('/patientRegister', { state: { wardID: wardID, HospitalID: HospitalID } })
   }
 
   const navigateToPatientUpdate = (event, rowData) => {
@@ -90,23 +90,50 @@ function Patients() {
   const NIC = <span className='font-bold'>NIC</span>
   const PhoneNumber = <span className='font-bold'>Phone Number</span>
 
+  const ViewText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" ? (
+    <span style={{ color: '#1976d2', fontWeight: 'bold', fontSize: '14px' }}>View</span>
+
+  ) : (
+    <span style={{ color: '#1976d2', fontWeight: 'bold', fontSize: '14px' }}></span>
+  );
+
+  const EditText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" ? (
+    <span style={{ color: '#72A400', fontWeight: 'bold', fontSize: '14px' }}>Edit</span>
+
+  ) : (
+    <span style={{ color: '#1976d2', fontWeight: 'bold', fontSize: '14px' }}></span>
+  );
+
+  const DeleteText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" ? (
+    <span style={{ color: '#f44336', fontWeight: 'bold', fontSize: '14px' }}>Delete</span>
+
+  ) : (
+    <span style={{ color: '#1976d2', fontWeight: 'bold', fontSize: '14px' }}></span>
+  );
+
   return (
     <div>
       <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
       <h2 class="mb-10 mt-8 ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Patients</h2>
       <div class="flex items-center justify-between mb-6">
-                <button onClick={(e) => { navigatePatientRegister(e) }} class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
-                  Add Patient
-                </button>
-              </div>
+        {
+          localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" ? (
+            <button onClick={(e) => { navigatePatientRegister(e) }} class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-16" type="button">
+              Add Patient
+            </button>
+          ) : (
+            <div></div>
+          )
+        }
+      </div>
       <div style={{ maxWidth: '90%' }} className="ml-16">
-      <style>
-    {`
+        <style>
+          {`
       .MuiTableCell-head {
         font-size: 15px;
       }
     `}
-  </style>
+        </style>
         <MaterialTable
           icons={tableIcons}
           columns={[
@@ -116,7 +143,7 @@ function Patients() {
             { title: Address, field: 'address' },
             { title: NIC, field: 'NIC' },
             { title: PhoneNumber, field: 'phone' },
-            
+
 
           ]}
           data={Patients}
@@ -124,21 +151,21 @@ function Patients() {
           actions={[
             {
               icon: () => (
-                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
+                ViewText
               ),
               tooltip: 'View Patient',
               onClick: (event, rowData) => { navigateToWard(event, rowData) }
             },
             {
               icon: () => (
-                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
+                EditText
               ),
               tooltip: 'Edit Patient',
               onClick: (event, rowData) => { navigateToPatientUpdate(event, rowData) }
             },
             {
               icon: () => (
-                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
+                DeleteText
               ),
               tooltip: 'Delete Patient',
               onClick: (event, rowData) => { alert("Sorry, You can't delete this patient") }
@@ -147,7 +174,7 @@ function Patients() {
           options={{
             headerStyle: {
               backgroundColor: '#012c4f',
-          color: '#FFF'
+              color: '#FFF'
             },
             actionsColumnIndex: -1
           }}

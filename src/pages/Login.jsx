@@ -19,6 +19,7 @@ const Login = () => {
         localStorage.setItem("username", response.data.data.username);
         localStorage.setItem("first_name", response.data.data.first_name);
         localStorage.setItem("last_name", response.data.data.last_name);
+        localStorage.setItem("name", response.data.data.name);
         localStorage.setItem("ID", response.data.data._id);
         localStorage.setItem("role", response.data.data.role);
         localStorage.setItem("loggedIn", true);

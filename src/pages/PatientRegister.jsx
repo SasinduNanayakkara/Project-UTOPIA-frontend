@@ -31,13 +31,17 @@ function PatientRegister() {
 
     const handleSubmit = async (e) => {
         console.log("ward id", wardID);
-
+        validation(NIC);
+        if (name === "" || NIC === "" || address === "" || phone === "") {
+            alert("Please fill required fields");
+            return;
+        }
         e.preventDefault();
         try {
             const response = await axios.post(`${baseUrl}/patient`, { name, NIC, bloodType, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID, hospital: HospitalID });
             if (response) {
                 console.log(response);
-                const patientResponse = await axios.put(`${baseUrl}/wardPatient/${wardID}`, {patientId: response.data._id});
+                const patientResponse = await axios.put(`${baseUrl}/wardPatient/${wardID}`, { patientId: response.data._id });
                 if (patientResponse) {
                     console.log("patientResponse", patientResponse);
                     alert("Patient Registered Successfully");
@@ -51,6 +55,19 @@ function PatientRegister() {
             navigate("/patients", { state: { wardID: wardID, HospitalID: HospitalID } });
         }
     }
+
+    function validation(nicNumber) {
+        var result = false;
+        if (nicNumber.length === 10 && !isNaN(nicNumber.substr(0, 9)) && isNaN(nicNumber.substr(9, 1).toLowerCase()) && ['x', 'v'].includes(nicNumber.substr(9, 1).toLowerCase())) {
+            setNIC(nicNumber);
+        } else if (nicNumber.length === 12 && !isNaN(nicNumber)) {
+            setNIC(nicNumber);
+        } else {
+            alert("Invalid NIC Number");
+        }
+        return result;
+    }
+
 
     return (
         <section className="h-screen">
@@ -114,7 +131,7 @@ function PatientRegister() {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                {/* <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                                         Patient Status
                                     </label>
@@ -130,7 +147,7 @@ function PatientRegister() {
                                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
@@ -146,7 +163,7 @@ function PatientRegister() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Phone Number
                                     </label>
-                                    <input onChange={(e) => setPhone(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="756 123 2343" />
+                                    <input onChange={(e) => setPhone(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="number" placeholder="756 123 2343" />
 
                                 </div>
                             </div>
@@ -164,19 +181,19 @@ function PatientRegister() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                                         Pulse
                                     </label>
-                                    <input onChange={(e) => setPulse(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque" />
+                                    <input onChange={(e) => setPulse(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="number" step="0.01" placeholder="Pulse" />
                                 </div>
                                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                                         Weight
                                     </label>
-                                    <input onChange={(e) => setWeight(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque" />
+                                    <input onChange={(e) => setWeight(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="number" step="0.01" placeholder="Weight" />
                                 </div>
                                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
                                         Height
                                     </label>
-                                    <input onChange={(e) => setHeight(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
+                                    <input onChange={(e) => setHeight(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" step="0.01" placeholder="Height" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -184,7 +201,7 @@ function PatientRegister() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         complain
                                     </label>
-                                    <input onChange={(e) => setComplain(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Complain" />
+                                    <textarea onChange={(e) => setComplain(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Complain" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -192,7 +209,7 @@ function PatientRegister() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Medical History
                                     </label>
-                                    <input onChange={(e) => setMedical_history(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Medical History" />
+                                    <textarea onChange={(e) => setMedical_history(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Medical History" />
 
                                 </div>
                             </div>
@@ -201,7 +218,7 @@ function PatientRegister() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Surgical history
                                     </label>
-                                    <input onChange={(e) => setSurgical_history(e.target.value)} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Surgical History" />
+                                    <textarea onChange={(e) => setSurgical_history(e.target.value)} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Surgical History" />
 
                                 </div>
                             </div>
@@ -210,7 +227,7 @@ function PatientRegister() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Food allergies
                                     </label>
-                                    <input onChange={(e) => setFood_allergies(e.target.value)} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Food Allergies" />
+                                    <textarea onChange={(e) => setFood_allergies(e.target.value)} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Food Allergies" />
 
                                 </div>
                             </div>
@@ -219,7 +236,7 @@ function PatientRegister() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Drug allergies
                                     </label>
-                                    <input onChange={(e) => setDrug_allergies(e.target.value)} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Drug Allergies" />
+                                    <textarea onChange={(e) => setDrug_allergies(e.target.value)} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Drug Allergies" />
 
                                 </div>
                             </div>
