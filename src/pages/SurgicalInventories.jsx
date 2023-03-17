@@ -65,6 +65,7 @@ function SurgicalInventories() {
   console.log(SurgicalInventories);
 
   const navigateToInventory = (event, rowData) => {
+    alert(`please request more ${rowData.name}`);
     // navigate('/hospitalDashboard', { state: { name: rowData.name, quantity: rowData.quantity, id: rowData._id } })
   }
 

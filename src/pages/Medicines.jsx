@@ -65,7 +65,8 @@ function Medicines() {
   console.log(Medicines);
 
   const navigateToMedicine = (event, rowData) => {
-    navigate('/hospitalDashboard', { state: { name: rowData.name, quantity: rowData.quantity, id: rowData._id } })
+    alert(`Please Request more ${rowData.name}`);
+    // navigate('/hospitalDashboard', { state: { name: rowData.name, quantity: rowData.quantity, id: rowData._id } })
   }
 
   const navigateMedicineRegister = (e) => {
@@ -114,7 +115,7 @@ function Medicines() {
           actions={[
             {
               icon: () => (
-                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
+                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>Request</span>
               ),
               tooltip: 'View Hospital',
               onClick: (event, rowData) => { navigateToMedicine(event, rowData) }
