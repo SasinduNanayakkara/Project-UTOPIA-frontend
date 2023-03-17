@@ -1,9 +1,6 @@
 import Header from '../Components/Header'
 import React from "react";
-import Doctors from "../Asserts/Doctors.png";
-import Inventory from "../Asserts/Inventory.png";
 import Hospital from "../Asserts/Hospital.png";
-import Medicine from "../Asserts/Medicine.png";
 import Admin from "../Asserts/Admin.jpg";
 
 import { useNavigate } from "react-router-dom";
@@ -15,21 +12,11 @@ const AdminDashbaord = () => {
 	const id = localStorage.getItem("id");
 	console.log("RoleID: " + id);
 
-	const DoctorNav = () => {
-		navigate("/doctors");
-	};
+	
 
 	const HospitalNav = () => {
 		navigate("/hospitals");
 	};
-
-	// const InventoryNav = () => {
-	// 	navigate("/");
-	// };
-
-	// const MedicineNav = () => {
-	// 	navigate("/");
-	// };
 
 	return (
 		<>
@@ -52,24 +39,7 @@ const AdminDashbaord = () => {
 									<div className="bg-white w-[65%] h-auto p-14 rounded-xl mt-10 mb-10 mr-10 ml-10">
 										<div className="flex-row">
 											<div className="mr-80">
-												<div className="my-10 flex flex-row">
-													<div className="flex flex-row bg-blue-900 h-20 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
-														<button
-															onClick={
-																DoctorNav
-															}
-															class="bg-button-blue h-20 hover:bg-button-hover-blue text-white font-bold text-lg  px-[11.75rem] rounded">
-															Doctors Details
-														</button>
-														<img
-															src={
-																Doctors
-															}
-															className="mt-1 h-20 w-35"
-															alt="exams"
-														/>
-													</div>
-												</div>
+												
 												<div className="my-10 flex flex-row">
 													<div className="flex flex-row bg-blue-600 h-20 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
 														<button
@@ -89,44 +59,7 @@ const AdminDashbaord = () => {
 														/>
 													</div>
 												</div>
-												{/* <div className="my-10 flex flex-row">
-													<div className="flex flex-row h-20 bg-blue-900 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
-														<button
-															onClick={
-																InventoryNav
-															}
-															class="bg-button-blue h-20 hover:bg-button-hover-blue text-white font-bold text-lg px-[11.35rem] rounded">
-															Inventory Details
-															
-														</button>
-														<img
-															src={
-																Inventory
-															}
-															className="mt-1 h-20 w-35"
-															alt="tute"
-														/>
-													</div>
-												</div> */}
-												{/* <div className="my-10 flex flex-row">
-													<div className="flex flex-row h-20 bg-blue-600 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
-														<button
-															onClick={
-																MedicineNav
-															}
-															class="bg-button-blue hover:bg-button-hover-blue text-white font-bold text-lg px-[11.5rem] rounded">
-															Medicine
-															Details
-														</button>
-														<img
-															src={
-																Medicine
-															}
-															className="mt-4=1 h-20 w-35"
-															alt="eevnts"
-														/>
-													</div>
-												</div> */}
+												
 											</div>
 										</div>
 									</div>
