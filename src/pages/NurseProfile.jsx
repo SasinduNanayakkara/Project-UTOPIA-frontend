@@ -1,17 +1,18 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { baseUrl } from '../App';
-import Header from '../Components/Header'
+import Header from '../Components/Header';
 
 function NurseProfile() {
     const navigate = useNavigate();
     const location = useLocation();
     const nurseID = location.state.ID;
+    console.log("nurseID", nurseID);
     const [first_name, setFirst_name] = useState("");
     const [last_name, setLast_name] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [wards, setWards] = useState("");
     const [confirm_password, setConfirm_password] = useState("");
     const [username, setUsername] = useState("");
     const [timeSlot, setTimeSlot] = useState("");
@@ -28,6 +29,13 @@ function NurseProfile() {
                     setEmail(response.data.email);
                     setUsername(response.data.username);
                     setTimeSlot(response.data.timeSlot);
+                    setWardID(response.data.ward);
+                    setHospitalID(response.data.hospitalID);
+
+                    const wardResponse = await axios.get(`${baseUrl}/ward/hospital/${hospitalID}`);
+                    if (wardResponse) {
+                        setWards(wardResponse.data);
+                    }
                 }
             }
             catch (err) {
@@ -52,7 +60,7 @@ function NurseProfile() {
                     <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
                         <form class="w-full max-w-lg">
                             <div class="flex flex-wrap -mx-3 mb-6">
-                                <h2 class="mb-10 mt-5 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Nurse Registration</h2>
+                                <h2 class="mb-10 mt-5 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-black">Nurse Profile Details</h2>
                                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                         First Name

@@ -65,8 +65,8 @@ function Nurses() {
   }, []);
   console.log(Nurses);
 
-  const navigateToHospital = (event, rowData) => {
-    navigate('/hospitalDashboard', { state: { name: rowData.name, location: rowData.location, id: rowData._id } })
+  const navigateNurseProfile = (event, rowData) => {
+    navigate('/nurseProfile', { state: { ID: rowData._id } })
   }
 
   const navigateNurseRegister = (e) => {
@@ -114,7 +114,7 @@ function Nurses() {
                 <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
               ),
               tooltip: 'View Nurse',
-              onClick: (event, rowData) => { navigateToHospital(event, rowData) }
+              onClick: (event, rowData) => { navigateNurseProfile(event, rowData) }
             },
             {
               icon: () => (
