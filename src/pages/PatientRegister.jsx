@@ -31,7 +31,9 @@ function PatientRegister() {
 
     const handleSubmit = async (e) => {
         console.log("ward id", wardID);
-        validation(NIC);
+        if (!validation(NIC)) {
+            return;
+        } 
         if (name === "" || NIC === "" || address === "" || phone === "") {
             alert("Please fill required fields");
             return;
@@ -60,10 +62,13 @@ function PatientRegister() {
         var result = false;
         if (nicNumber.length === 10 && !isNaN(nicNumber.substr(0, 9)) && isNaN(nicNumber.substr(9, 1).toLowerCase()) && ['x', 'v'].includes(nicNumber.substr(9, 1).toLowerCase())) {
             setNIC(nicNumber);
+            return true;
         } else if (nicNumber.length === 12 && !isNaN(nicNumber)) {
             setNIC(nicNumber);
+            return true;
         } else {
             alert("Invalid NIC Number");
+            return false;
         }
         return result;
     }

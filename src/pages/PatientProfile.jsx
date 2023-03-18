@@ -59,13 +59,13 @@ function PatientProfile() {
         }
 
         getData();
-    },[]);
+    }, []);
 
     const goBack = () => {
-        navigate("/patients", { state: { wardID: wardID, HospitalID: HospitalID }});
+        navigate("/patients", { state: { wardID: wardID, HospitalID: HospitalID } });
     }
-    
-    console.log(wardID);
+
+    console.log("id", ID);
     console.log(HospitalID);
     return (
         <section className="h-screen">
@@ -83,68 +83,34 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                         Patient Name
                                     </label>
-                                    <input value={name} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Patient name" />
+                                    <input value={name} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Patient name" />
                                     <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                                 </div>
                                 <div class="w-full md:w-1/2 px-3">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                         NIC
                                     </label>
-                                    <input value={NIC} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="NIC" />
+                                    <input value={NIC} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="NIC" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
-                                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                                <div class="w-full md:w-1/3 px-3">
+                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                         Blood Type
                                     </label>
-                                    <div class="relative">
-                                        <select defaultValue={""} value={bloodType} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                            <option value="">-</option>
-                                            <option value="A+">A+</option>
-                                            <option value="A-">A-</option>
-                                            <option value="B+">B+</option>
-                                            <option value="B-">B-</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="AB-">AB-</option>
-                                            <option value="O+">O+</option>
-                                            <option value="O-">O-</option>
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                        </div>
-                                    </div>
+                                    <input value={bloodType} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="BloodType" />
                                 </div>
-                                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                                <div class="w-full md:w-1/3 px-3">
+                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                         Gender
                                     </label>
-                                    <div class="relative">
-                                        <select defaultValue={"male"} value={gender} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                        </div>
-                                    </div>
+                                    <input value={gender} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="NIC" />
                                 </div>
-                                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                                        Patient Status
+                                <div class="w-full md:w-1/3 px-3">
+                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                                        Status
                                     </label>
-                                    <div class="relative">
-                                        <select defaultValue={"admitted"} value={status} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                            <option value="admitted">admitted</option>
-                                            <option value="discharged">discharged</option>
-                                            <option value="dead">dead</option>
-                                            <option value="transferred">transferred</option>
-                                            <option value="missing">missing</option>
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                        </div>
-                                    </div>
+                                    <input value={status} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="NIC" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -152,7 +118,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Address
                                     </label>
-                                    <input value={address} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Address" />
+                                    <input value={address} readOnly class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Address" />
 
                                 </div>
                             </div>
@@ -161,7 +127,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Phone Number
                                     </label>
-                                    <input value={phone} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="756 123 2343" />
+                                    <input value={phone} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="756 123 2343" />
 
                                 </div>
                             </div>
@@ -170,7 +136,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Guardian Details
                                     </label>
-                                    <input value={guardian_Details} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Guardian Details" />
+                                    <input value={guardian_Details} readOnly class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Guardian Details" />
 
                                 </div>
                             </div>
@@ -179,19 +145,19 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                                         Pulse
                                     </label>
-                                    <input value={pulse} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque" />
+                                    <input value={pulse} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque" />
                                 </div>
                                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                                         Weight
                                     </label>
-                                    <input value={weight} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque" />
+                                    <input value={weight} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque" />
                                 </div>
                                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
                                         Height
                                     </label>
-                                    <input value={height} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
+                                    <input value={height} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -199,7 +165,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         complain
                                     </label>
-                                    <input value={complain} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Complain" />
+                                    <input value={complain} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Complain" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -207,7 +173,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Medical History
                                     </label>
-                                    <input value={medical_history} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Medical History" />
+                                    <input value={medical_history} readOnly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Medical History" />
 
                                 </div>
                             </div>
@@ -216,7 +182,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Surgical history
                                     </label>
-                                    <input value={surgical_history} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Surgical History" />
+                                    <input value={surgical_history} readOnly class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Surgical History" />
 
                                 </div>
                             </div>
@@ -225,7 +191,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Food allergies
                                     </label>
-                                    <input value={food_allergies} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Food Allergies" />
+                                    <input value={food_allergies} readOnly class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Food Allergies" />
 
                                 </div>
                             </div>
@@ -234,7 +200,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Drug allergies
                                     </label>
-                                    <input value={drug_allergies} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Drug Allergies" />
+                                    <input value={drug_allergies} readOnly class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Drug Allergies" />
 
                                 </div>
                             </div>
@@ -243,7 +209,7 @@ function PatientProfile() {
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Discharge Date
                                     </label>
-                                    <input value={discharge_date} class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="date" placeholder="******************" />
+                                    <input value={discharge_date} readOnly class="appearance-none resize block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="date" placeholder="******************" />
 
                                 </div>
                             </div>
