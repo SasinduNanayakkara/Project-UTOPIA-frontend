@@ -5,19 +5,24 @@ import logo from "../Asserts/Asset-1.png"
 const Header = ({first_name, username}) => {
     const navigate = useNavigate();
     const [nameText, setNameText] = useState("")
+
     const handleLogin = () => {
-        if (localStorage.getItem("loggedIn")) {
-            localStorage.removeItem("loggedIn")
-            localStorage.removeItem("username")
-            localStorage.removeItem("first_name")
-            localStorage.removeItem("last_name")
-            localStorage.removeItem("email")
-            localStorage.removeItem("id")
-            localStorage.removeItem("token")
+        // localStorage.clear();
             navigate("/")
-        } else {
-            navigate("/")
-        }
+            console.log("logging in");
+    }
+
+    const handleLogOut = () => {
+        // console.log("logging out");
+        // localStorage.setItem("loggedIn", false)
+        // localStorage.removeItem("username")
+        // localStorage.removeItem("first_name")
+        // localStorage.removeItem("last_name")
+        // localStorage.removeItem("email")
+        // localStorage.removeItem("id")
+        // localStorage.removeItem("token")
+        localStorage.clear();
+        navigate("/")
     }
 
     useEffect(() => {
@@ -34,7 +39,13 @@ const Header = ({first_name, username}) => {
                 <img src={logo} class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
             </a>
             <div class="flex items-center lg:order-2">
-                <a href="#" onClick={(e) => handleLogin(e)} class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-gray-800">{localStorage.getItem("loggedIn") ? "Logout" : "Log in"}</a>
+                {
+                    localStorage.getItem("loggedIn") ? (
+                        <a href="#" onClick={(e) => handleLogOut(e)} class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-gray-800">Log Out</a>
+                    ) : (
+                        <a href="#" onClick={(e) => handleLogin(e)} class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-gray-800">Log In</a>
+                    )
+                }
                 <a class="text-gray-800 dark:text-white  focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2  focus:outline-none dark:focus:ring-gray-800">{localStorage.getItem("loggedIn") ? nameText : ""}</a>
                 
                 <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
