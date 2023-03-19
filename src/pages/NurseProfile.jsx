@@ -12,16 +12,17 @@ function NurseProfile() {
     const [first_name, setFirst_name] = useState("");
     const [last_name, setLast_name] = useState("");
     const [email, setEmail] = useState("");
-    const [wards, setWards] = useState("");
-    const [confirm_password, setConfirm_password] = useState("");
+    const [wards, setWards] = useState([]);
+    const [wardName, setWardName] = useState("");
     const [username, setUsername] = useState("");
     const [timeSlot, setTimeSlot] = useState("");
     const [hospitalID, setHospitalID] = useState("");
     const [wardID, setWardID] = useState("");
+    const [NIC, setNIC] = useState("");
 
     useEffect(() => {
 		const authenticate = async () => {
-			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "nurse") {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "nurse" || localStorage.getItem("role") === "ward manager") {
 				return true;
 			}
 			else {
@@ -44,12 +45,17 @@ function NurseProfile() {
                     setTimeSlot(response.data.timeSlot);
                     setWardID(response.data.ward);
                     setHospitalID(response.data.hospitalID);
+                    setNIC(response.data.NIC);
 
-                    const wardResponse = await axios.get(`${baseUrl}/ward/hospital/${hospitalID}`);
-                    if (wardResponse) {
-                        setWards(wardResponse.data);
-                    }
                 }
+                console.log("nurse hospital ID", response.data.hospitalID);
+
+                const wardResponse = await axios.get(`${baseUrl}/ward/hospital/${response.data.hospitalID}`);
+                if (wardResponse) {
+                    console.log("all wards", wardResponse.data);
+                    setWards(wardResponse.data);
+                }
+               
             }
             catch (err) {
                 console.log(err);
@@ -58,10 +64,25 @@ function NurseProfile() {
         getData();
     },[]);
 
-    const handleSubmit = () => {
-        navigate("/nurseDashboard", { state: { hospitalID: hospitalID, wardID: wardID } });
-    }
+    useEffect(() => {
+        if (wards) {
+            wards.map((ward) => {
+                console.log("ward details", ward);
+                if (ward._id === wardID) {
+                    console.log("ok");
+                    setWardName(ward.name);
+                }
+            });
+        }
+    });
 
+    
+
+    const handleSubmit = () => {
+        // navigate("/nurseDashboard", { state: { hospitalID: hospitalID, wardID: wardID } });
+        navigate(-1);
+    }
+console.log("ward name", wardName);
   return (
     <section className="h-screen">
                     <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />
@@ -99,12 +120,28 @@ function NurseProfile() {
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                                        NIC
+                                    </label>
+                                    <input readOnly value={NIC} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Email" />
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                                <div class="w-full px-3">
+                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                                         Time slot
                                     </label>
                                     <input readOnly value={timeSlot} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="time" placeholder="Specialization" />
                                 </div>
                             </div>
 
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                                <div class="w-full px-3">
+                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                                        Ward
+                                    </label>
+                                    <input readOnly value={wardName} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Username" />
+                                </div>
+                            </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full px-3">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">

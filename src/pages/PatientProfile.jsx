@@ -48,7 +48,7 @@ function PatientProfile() {
                 const response = await axios.get(`${baseUrl}/patient/${ID}`);
                 if (response) {
                     setName(response.data.name);
-                    setBloodType(response.data.bloodType);
+                    setBloodType(response.data.blood_type);
                     setGender(response.data.gender);
                     setPulse(response.data.pulse);
                     setWeight(response.data.weight);

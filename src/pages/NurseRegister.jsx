@@ -17,7 +17,7 @@ function NurseRegister() {
     const [password, setPassword] = useState("");
     const [confirm_password, setConfirm_password] = useState("");
     const [username, setUsername] = useState("");
-    const [Hospital, setHospital] = useState("");
+    const [NIC, setNIC] = useState("");
     const [hospitals, setHospitals] = useState([]);
     const [wards, setWards] = useState([]);
     const [ward, setWard] = useState("");
@@ -44,9 +44,12 @@ function NurseRegister() {
             setPasswordMatch(false);
             return;
         }
+        if (!validation(NIC)) {
+            return
+        }
         e.preventDefault();
         try {
-            const response = await axios.post(`${baseUrl}/nurse`, { first_name, last_name, email, username, password, hospitalID: HospitalID, timeSlot, ward: wardID });
+            const response = await axios.post(`${baseUrl}/nurse`, { first_name, last_name, NIC, email, username, password, hospitalID: HospitalID, timeSlot, ward: wardID });
             if (response) {
                 console.log(response);
                 alert("Nurse Registered Successfully");
@@ -57,6 +60,20 @@ function NurseRegister() {
             console.log(error);
             alert("Error in Registering Nurse");
             navigate("/nurses", { state: { wardID: wardID, HospitalID: HospitalID } });
+        }
+    }
+
+    function validation(nicNumber) {
+        var result = false;
+        if (nicNumber.length === 10 && !isNaN(nicNumber.substr(0, 9)) && isNaN(nicNumber.substr(9, 1).toLowerCase()) && ['x', 'v'].includes(nicNumber.substr(9, 1).toLowerCase())) {
+            setNIC(nicNumber);
+            return true;
+        } else if (nicNumber.length === 12 && !isNaN(nicNumber)) {
+            setNIC(nicNumber);
+            return true;
+        } else {
+            alert("Invalid NIC Number");
+            return false;
         }
     }
 
@@ -92,6 +109,14 @@ function NurseRegister() {
                                         Email
                                     </label>
                                     <input onChange={(e) => setEmail(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Email" />
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                                <div class="w-full px-3">
+                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                                        NIC
+                                    </label>
+                                    <input onChange={(e) => setNIC(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Email" />
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-6">

@@ -54,27 +54,27 @@ function UpdatePatient() {
                     console.log(" wards ok");
                     setWards(wardResponse.data);
                 }
-                const NurseResponse = await axios.get(`${baseUrl}/patient/${patientID}`);
-                if (NurseResponse) {
+                const PatientResponse = await axios.get(`${baseUrl}/patient/${patientID}`);
+                if (PatientResponse) {
                     console.log("patient data ok");
-                    setName(NurseResponse.data.name);
-                    setNIC(NurseResponse.data.NIC);
-                    setBloodType(NurseResponse.data.blood_type);
-                    setGender(NurseResponse.data.gender);
-                    setPulse(NurseResponse.data.pulse);
-                    setWeight(NurseResponse.data.weight);
-                    setHeight(NurseResponse.data.height);
-                    setComplain(NurseResponse.data.complain);
-                    setMedical_history(NurseResponse.data.medical_history);
-                    setSurgical_history(NurseResponse.data.surgical_history);
-                    setFood_allergies(NurseResponse.data.food_allergies);
-                    setDrug_allergies(NurseResponse.data.drug_allergies);
-                    setGuardian_Details(NurseResponse.data.guardian_Details);
-                    setAddress(NurseResponse.data.address);
-                    setPhone(NurseResponse.data.phone);
-                    setStatus(NurseResponse.data.status);
-                    setDischarge_date(NurseResponse.data.discharge_date);
-                    setWard(NurseResponse.data.ward);
+                    setName(PatientResponse.data.name);
+                    setNIC(PatientResponse.data.NIC);
+                    setBloodType(PatientResponse.data.blood_type);
+                    setGender(PatientResponse.data.gender);
+                    setPulse(PatientResponse.data.pulse);
+                    setWeight(PatientResponse.data.weight);
+                    setHeight(PatientResponse.data.height);
+                    setComplain(PatientResponse.data.complain);
+                    setMedical_history(PatientResponse.data.medical_history);
+                    setSurgical_history(PatientResponse.data.surgical_history);
+                    setFood_allergies(PatientResponse.data.food_allergies);
+                    setDrug_allergies(PatientResponse.data.drug_allergies);
+                    setGuardian_Details(PatientResponse.data.guardian_Details);
+                    setAddress(PatientResponse.data.address);
+                    setPhone(PatientResponse.data.phone);
+                    setStatus(PatientResponse.data.status);
+                    setDischarge_date(PatientResponse.data.discharge_date);
+                    setWard(PatientResponse.data.ward);
                 }
                 wards.map((wardItem) => {
                     if (wardItem._id === ward) {
@@ -90,22 +90,41 @@ function UpdatePatient() {
     }, []);
     console.log(wards);
     console.log(name);
+    console.log(bloodType);
 
     const handleSubmit = async (e) => {
         console.log("ward id", wardID);
+        if (validation(NIC) === false) {
+            alert("Invalid NIC Number");
+            return;
+        }
         e.preventDefault();
         try {
-            const response = await axios.put(`${baseUrl}/patient/${patientID}`, { name, NIC, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID });
+            const response = await axios.put(`${baseUrl}/patient/${patientID}`, { name, NIC, blood_type: bloodType, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID });
             if (response) {
                 console.log(response);
                 alert("Patient Updated Successfully");
-                navigate("/patients", { state: { HospitalID: hospitalID }});
+                navigate("/patients", { state: { HospitalID: hospitalID, wardID: wardID }});
             }
         }
         catch (error) {
             console.log(error);
             alert("Patient Update Failed");
             navigate("/patients", { state: { HospitalID: hospitalID }});
+        }
+    }
+
+    function validation(nicNumber) {
+        var result = false;
+        if (nicNumber.length === 10 && !isNaN(nicNumber.substr(0, 9)) && isNaN(nicNumber.substr(9, 1).toLowerCase()) && ['x', 'v'].includes(nicNumber.substr(9, 1).toLowerCase())) {
+            setNIC(nicNumber);
+            return true;
+        } else if (nicNumber.length === 12 && !isNaN(nicNumber)) {
+            setNIC(nicNumber);
+            return true;
+        } else {
+            alert("Invalid NIC Number");
+            return false;
         }
     }
 
@@ -141,7 +160,7 @@ function UpdatePatient() {
                                         Blood Type
                                     </label>
                                     <div class="relative">
-                                        <select defaultValue={bloodType} onChange={(e) => setBloodType(e.target.value)} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                                        <select value={bloodType} onChange={(e) => setBloodType(e.target.value)} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                             <option value="">-</option>
                                             <option value="A+">A+</option>
                                             <option value="A-">A-</option>

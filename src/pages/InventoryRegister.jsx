@@ -43,7 +43,7 @@ function InventoryRegister() {
         }
         catch (error) {
             console.log(error);
-            alert("Error in Adding Inventory");
+            alert(error.message);
             navigate("/inventories", { state: { wardID: wardID } });
         }
     }

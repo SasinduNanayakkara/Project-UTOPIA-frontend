@@ -69,6 +69,9 @@ function UpdateDoctor() {
 
     const handleSubmit = async (e) => {
         console.log("hospital id", Hospital);
+        if (validation(NIC) === false) {
+            return;
+        }
         e.preventDefault();
         try {
             const response = await axios.put(`${baseUrl}/doctor/${doctorID}`, { first_name, last_name, email, username, specialization, hospitalID: Hospital, NIC });
@@ -82,6 +85,20 @@ function UpdateDoctor() {
             console.log(error);
             alert("Error Updating Doctor");
             navigate("/doctors", { state: { hospitalID: hospitalID } });
+        }
+    }
+
+    function validation(nicNumber) {
+        var result = false;
+        if (nicNumber.length === 10 && !isNaN(nicNumber.substr(0, 9)) && isNaN(nicNumber.substr(9, 1).toLowerCase()) && ['x', 'v'].includes(nicNumber.substr(9, 1).toLowerCase())) {
+            setNIC(nicNumber);
+            return true;
+        } else if (nicNumber.length === 12 && !isNaN(nicNumber)) {
+            setNIC(nicNumber);
+            return true;
+        } else {
+            alert("Invalid NIC Number");
+            return false;
         }
     }
 

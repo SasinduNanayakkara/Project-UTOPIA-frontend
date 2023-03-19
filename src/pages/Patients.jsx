@@ -103,14 +103,14 @@ function Patients() {
   const NIC = <span className='font-bold'>NIC</span>
   const PhoneNumber = <span className='font-bold'>Phone Number</span>
 
-  const ViewText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" ? (
+  const ViewText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" || localStorage.getItem("role") === "nurse" ? (
     <span style={{ color: '#1976d2', fontWeight: 'bold', fontSize: '14px' }}>View</span>
 
   ) : (
     <span style={{ color: '#1976d2', fontWeight: 'bold', fontSize: '14px' }}></span>
   );
 
-  const EditText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" ? (
+  const EditText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" || localStorage.getItem("role") === "nurse" ? (
     <span style={{ color: '#72A400', fontWeight: 'bold', fontSize: '14px' }}>Edit</span>
 
   ) : (

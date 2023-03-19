@@ -44,6 +44,9 @@ function DoctorRegister() {
       setPasswordMatch(false);
       return;
     }
+    if (validation(NIC) === false) {
+      return;
+    }
     e.preventDefault();
     try {
       const response = await axios.post(`${baseUrl}/doctor`, { first_name, last_name, email, username, password, specialization, hospitalID: hospitalID, NIC });
@@ -64,6 +67,20 @@ function DoctorRegister() {
       navigate("/doctors", { state: { hospitalID: hospitalID } });
     }
   }
+
+  function validation(nicNumber) {
+    var result = false;
+    if (nicNumber.length === 10 && !isNaN(nicNumber.substr(0, 9)) && isNaN(nicNumber.substr(9, 1).toLowerCase()) && ['x', 'v'].includes(nicNumber.substr(9, 1).toLowerCase())) {
+        setNIC(nicNumber);
+        return true;
+    } else if (nicNumber.length === 12 && !isNaN(nicNumber)) {
+        setNIC(nicNumber);
+        return true;
+    } else {
+        alert("Invalid NIC Number");
+        return false;
+    }
+}
 
   return (
     <section className="h-screen">

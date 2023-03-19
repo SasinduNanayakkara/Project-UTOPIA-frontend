@@ -53,7 +53,7 @@ function PatientRegister() {
         }
         e.preventDefault();
         try {
-            const response = await axios.post(`${baseUrl}/patient`, { name, NIC, bloodType, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID, hospital: HospitalID });
+            const response = await axios.post(`${baseUrl}/patient`, { name, NIC, blood_type: bloodType, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID, hospital: HospitalID });
             if (response) {
                 console.log(response);
                 const patientResponse = await axios.put(`${baseUrl}/wardPatient/${wardID}`, { patientId: response.data._id });
@@ -83,10 +83,9 @@ function PatientRegister() {
             alert("Invalid NIC Number");
             return false;
         }
-        return result;
     }
 
-
+console.log(bloodType);
     return (
         <section className="h-screen">
             <Header />
