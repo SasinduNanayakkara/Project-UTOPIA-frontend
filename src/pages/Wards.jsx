@@ -50,7 +50,7 @@ function Wards() {
 
   useEffect(() => {
 		const authenticate = async () => {
-			if (localStorage.getItem("role") === "admin") {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor") {
 				return true;
 			}
 			else {
