@@ -49,6 +49,19 @@ function SurgicalInventories() {
   };
 
   useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "ward manager") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
+  useEffect(() => {
     const getSurgicalInventories = async () => {
       try {
         const response = await axios.get(`${baseUrl}/inventory/ward/surgical/${wardID}`);

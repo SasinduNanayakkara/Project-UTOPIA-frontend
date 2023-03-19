@@ -11,6 +11,19 @@ function PatientProfile() {
     const HospitalID = location.state.HospitalID;
     const ID = location.state.ID;
 
+    useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "nurse" || localStorage.getItem("role") === "doctor" || localStorage.getItem("role") === "ward manager") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
     const [name, setName] = useState("");
     const [bloodType, setBloodType] = useState("");
     const [gender, setGender] = useState("male");

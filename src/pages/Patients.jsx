@@ -49,6 +49,19 @@ function Patients() {
   };
 
   useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "doctor" || localStorage.getItem("role") === "nurse") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
+  useEffect(() => {
     const getPatients = async () => {
       try {
         const response = await axios.get(`${baseUrl}/patient/ward/${wardID}`);

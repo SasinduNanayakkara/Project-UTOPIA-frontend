@@ -22,6 +22,19 @@ function MedicineRegister() {
     });
 
     useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "ward manager") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
+    useEffect(() => {
         setWardID(location.state.wardID);
     }, []);
 

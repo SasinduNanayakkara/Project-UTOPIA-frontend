@@ -22,19 +22,20 @@ function DoctorRegister() {
   const [hospitals, setHospitals] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [notify, setNotify] = useState({isOpen:false, message:'', type:''})
-  // useEffect(() => {
-  //   const getHospitals = async () => {
-  //     const response = await axios.get(`${baseUrl}/hospital`);
-  //     if (response) {
-  //       console.log("ok");
-  //       // response.data.map((hospital) => {
-  //       //   setHospitals((prev) => [...prev, {id: hospital.id, name: hospital.name}]);
-  //       // });
-  //       setHospitals(response.data);
-  //     }
-  //   }
-  //   getHospitals();
-  // }, []);
+  
+  useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+  
   console.log(hospitals);
   console.log(hospitalID);
   const handleSubmit = async (e) => {

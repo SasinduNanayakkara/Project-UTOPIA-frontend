@@ -28,6 +28,19 @@ function PatientRegister() {
     const [status, setStatus] = useState("admitted");
     const [discharge_date, setDischarge_date] = useState("");
 
+    useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "ward manager") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
 
     const handleSubmit = async (e) => {
         console.log("ward id", wardID);

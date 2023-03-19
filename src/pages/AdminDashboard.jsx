@@ -1,5 +1,5 @@
 import Header from '../Components/Header'
-import React from "react";
+import React, { useEffect } from "react";
 import Hospital from "../Asserts/Hospital.png";
 import Admin from "../Asserts/Admin.jpg";
 
@@ -12,7 +12,18 @@ const AdminDashbaord = () => {
 	const id = localStorage.getItem("id");
 	console.log("RoleID: " + id);
 
-	
+	useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
 
 	const HospitalNav = () => {
 		navigate("/hospitals");

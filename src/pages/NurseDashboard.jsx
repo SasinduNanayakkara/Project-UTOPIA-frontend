@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../Components/Header'
 import DocImg from "../Asserts/doc1.jpg";
 import Doctors from "../Asserts/Doc.jpg";
@@ -6,6 +6,19 @@ import Ward from "../Asserts/ward.jpg";
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function NurseDashboard() {
+
+  useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "nurse") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
 
   const navigate = useNavigate();
   const location = useLocation();

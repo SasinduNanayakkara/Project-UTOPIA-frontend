@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Components/Header'
 import DocImg from "../Asserts/doc1.jpg";
@@ -11,6 +11,19 @@ function DoctorDashboard() {
   const location = useLocation();
   const hospitalID = location.state.hospitalID;
   console.log("ID", localStorage.getItem("ID"));
+
+  useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
 
   const navigateToDoctorProfile = (e) => {
     navigate('/doctorProfile', { state: { ID: localStorage.getItem("ID") } });

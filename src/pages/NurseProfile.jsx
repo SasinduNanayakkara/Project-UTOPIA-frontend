@@ -20,6 +20,19 @@ function NurseProfile() {
     const [wardID, setWardID] = useState("");
 
     useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "nurse") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
+    useEffect(() => {
         const getData = async () => {
             try {
                 const response = await axios.get(`${baseUrl}/nurse/${nurseID}`);

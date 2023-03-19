@@ -21,6 +21,20 @@ function UpdateDoctor() {
     const [hospitals, setHospitals] = useState([]);
     const [passwordMatch, setPasswordMatch] = useState(true);
     console.log(doctorID);
+
+    useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
     useEffect(() => {
         const getDoctorDetails = async () => {
             try {

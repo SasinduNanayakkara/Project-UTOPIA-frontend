@@ -49,6 +49,19 @@ function Wards() {
   };
 
   useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
+  useEffect(() => {
     const getWards = async () => {
       try {
         const response = await axios.get(`${baseUrl}/ward/hospital/${hospitalID}`);

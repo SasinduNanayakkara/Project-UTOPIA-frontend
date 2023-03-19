@@ -21,6 +21,19 @@ function DecreaseSurgicalInventory() {
         setWardID(location.state.wardID);
     }, []);
 
+    useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

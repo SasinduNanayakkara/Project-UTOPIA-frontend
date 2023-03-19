@@ -24,6 +24,19 @@ function NurseRegister() {
     const [timeSlot, setTimeSlot] = useState("");
     const [passwordMatch, setPasswordMatch] = useState(true);
 
+    useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
     const handleSubmit = async (e) => {
         console.log("hospital id", HospitalID);
         console.log("ward id", wardID);

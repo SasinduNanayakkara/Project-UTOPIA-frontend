@@ -47,6 +47,19 @@ function DoctorProfile() {
             getData();
         }, []);
 
+        useEffect(() => {
+            const authenticate = async () => {
+                if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor") {
+                    return true;
+                }
+                else {
+                    alert("You are not authorized to view this page");
+                    navigate(-1);
+                }
+            }
+            authenticate();
+        });
+
         const handleSubmit = async (e) => {
             navigate("/doctorDashboard", { state: { hospitalID: Hospital } });
         }

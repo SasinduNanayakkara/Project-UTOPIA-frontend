@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { baseUrl } from '../App';
 
 function HospitalReport() {
     const location = useLocation();
+    const navigate = useNavigate();
     // const HospitalID = location.state.HospitalID;
     const HospitalID = "6408d47f1bd1a23165fb9d18";
     const [wards, setWards] = useState([]);
@@ -15,6 +16,19 @@ function HospitalReport() {
     const transferCount = [0];
     const deathCount = [0];
     const missingCount = [0];
+
+    useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
     // useEffect(() => {
     //     const getData = async () => {
     //         try {

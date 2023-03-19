@@ -12,6 +12,19 @@ function WardRegister() {
   const [no_of_beds, setNo_of_beds] = useState("");
 
   useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
+  useEffect(() => {
     setHospitalID(location.state.hospitalId);
   },[]);
   const handleSubmit = async (e) => {

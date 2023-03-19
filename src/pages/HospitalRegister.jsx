@@ -11,6 +11,19 @@ function HospitalRegister() {
   const [director, setDirector] = useState("");
   const [directorNIC, setDirectorNIC] = useState("");
   const [noOfWards, setNoOfWards] = useState(0);
+
+  useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
   
   const handleSubmit = async (e) => {
     e.preventDefault();

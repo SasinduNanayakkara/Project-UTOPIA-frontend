@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import Ward from "../Asserts/ward.jpg";
 import Doctors from "../Asserts/Doc.jpg";
@@ -17,6 +17,19 @@ function HospitalDashboard() {
   const navigateToDoctors = (e) => {
     navigate('/doctors', { state: { hospitalID: id } })
   }
+
+  useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
 
   return (
     <>

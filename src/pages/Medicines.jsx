@@ -49,6 +49,19 @@ function Medicines() {
   };
 
   useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "ward manager") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
+  useEffect(() => {
     const getMedicines = async () => {
       try {
         const response = await axios.get(`${baseUrl}/inventory/ward/${wardID}`);

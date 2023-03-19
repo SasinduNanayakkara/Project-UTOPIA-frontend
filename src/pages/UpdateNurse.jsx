@@ -21,6 +21,20 @@ function UpdateNurse() {
     const [wards, setWards] = useState([]);
     const [role, setRole] = useState("");
     console.log(nurseID);
+
+    useEffect(() => {
+		const authenticate = async () => {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "ward manager") {
+				return true;
+			}
+			else {
+				alert("You are not authorized to view this page");
+				navigate(-1);
+			}
+		}
+		authenticate();
+	});
+
     useEffect(() => {
         const getDoctorDetails = async () => {
             try {
