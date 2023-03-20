@@ -60,6 +60,10 @@ function WardDashboard() {
 		navigate("/surgicalInventories", { state: { wardID: wardID } });
 	};
 
+	const navigateToProfile = (e) => {
+		navigate("/nurseProfile", { state: { ID: localStorage.getItem("ID") } });
+	}
+
 	return (
 		<>
 			<div>
@@ -173,6 +177,30 @@ function WardDashboard() {
 														/>
 													</div>
 												</div>
+												{
+													localStorage.getItem("role") === "ward manager" ? (
+														<div className="my-10 flex flex-row">
+													<div className="flex flex-row bg-blue-900 h-20 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
+														<button
+															onClick={
+																navigateToProfile
+															}
+															class="bg-button-blue h-20 hover:bg-button-hover-blue text-white font-bold text-lg px-[10.76rem] rounded">
+															Ward Manager Profile
+														</button>
+														<img
+															src={
+																SergicalImg
+															}
+															className="mt-1 h-20 w-35"
+															alt="timetable"
+														/>
+													</div>
+												</div>
+													) : (
+														<div></div>
+													)
+												}
 											</div>
 										</div>
 									</div>
