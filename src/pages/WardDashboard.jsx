@@ -22,7 +22,7 @@ function WardDashboard() {
 
 	useEffect(() => {
 		const authenticate = async () => {
-			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "ward manager") {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "doctor") {
 				return true;
 			}
 			else {
