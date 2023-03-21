@@ -11,11 +11,16 @@ function HospitalReport() {
     const [wards, setWards] = useState([]);
     const [patients, setPatients] = useState([]);
     const [click, setClick] = useState(false);
-    const newAdmissionCount = [0];
-    const dischargedCount = [0];
-    const transferCount = [0];
-    const deathCount = [0];
-    const missingCount = [0];
+    let newAdmissionCount = 0;
+    let dischargedCount = 0;
+    let deathCount = 0;
+    let transferCount = 0;
+    let missingCount = 0;
+    const newAdmissionCountArray = [];
+    const dischargedCountArray = [];
+    const transferCountArray = [];
+    const deathCountArray = [];
+    const missingCountArray = [];
 
     useEffect(() => {
 		const authenticate = async () => {
@@ -29,85 +34,14 @@ function HospitalReport() {
 		}
 		authenticate();
 	});
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         try {
-
-    //             const response = await axios.get(`${baseUrl}/ward/hospital/${HospitalID}`);
-    //             if (response) {
-    //                 // console.log(response.data);
-    //                 setWards(response.data);
-    //             }
-    //         }
-    //         catch (error) {
-    //             console.log(error);
-    //         }
-    //     }        
-    //     getData();
-    // },[]);
-
-    // useEffect(() => {
-    //     const getWardData = async () => {
-    //         try {
-    //             const response = await axios.get(`${baseUrl}/ward/hospital/${HospitalID}`);
-    //             if (response) {
-    //                 const newWard = response.data.map((ward) => ({
-    //                     name: ward.name,
-    //                     no_of_beds: ward.no_of_beds,
-    //                     wardID: ward._id
-    //                 }));
-    //                 setWards(newWard);
-    //             }
-    //         }
-    //         catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
-    //     getWardData();
-    // }, []);
-
-    // useEffect(() => {
-    //     const getPatients = async () => {
-    //         wards.map(async (ward) => {
-    //             console.log("1");
-    //             try {
-    //             console.log("2");
-    //                 const response = await axios.get(`${baseUrl}/patient/ward/${ward.wardID}`);
-    //                 if (response) {
-    //             console.log("3");
-    //                     const newPatient = response.data.map((patient) => ({
-    //                         name: patient.name,
-    //                         age: patient.age,
-    //                         status: patient.status,
-    //                         disChargeDate: patient.discharge_date,
-    //                         ward: patient.ward,
-    //                         hospital: patient.hospital,
-    //                         id: patient._id,
-    //                         updatedAt: patient.updatedAt.substring(0, 10),
-    //                         createdAt: patient.createdAt.substring(0, 10)
-    //                     }));
-    //             console.log("4");
-    //                     setPatients(newItem => [...newItem, newPatient]);
-    //                 }
-    //             }
-    //             catch (error) {
-    //                 console.log("5");
-    //                 console.log(error);
-    //             }
-    //         });
-    //     }
-    //     getPatients();
-    // },[]);
-    // console.log("wards", wards);
-    // console.log("patients", patients);
-
-
+    
     useEffect(() => {
         const getData = async () => {
             try {
+                console.log("1");
                 const response = await axios.get(`${baseUrl}/wardPatient/${HospitalID}`);
                 if (response) {
-                    console.log(response.data);
+                    console.log("response" ,response.data);
                     setWards(response.data);
                 }
             }
@@ -118,23 +52,65 @@ function HospitalReport() {
         getData();
     }, []);
 
+    useEffect(() => {
+        getCounts();
+    });
+
     console.log("wards", wards);
+    let date = new Date();
+    date = date.toISOString().substring(0, 10)
+    console.log("ISO today", date);
 
     const getCounts = () => {
         setClick(true);
-        console.log("click", click);
-        patients.map((patient, index) => {
-            patient.map((item) => {
-                console.log("working");
-                if (item.updatedAt === new Date().toISOString().substring(0, 10) || item.createdAt === new Date().toISOString().substring(0, 10)) {
-                    if (item.status === "admitted") {
-                        newAdmissionCount[index] += 1;
-                        console.log("newAdmissionCount", newAdmissionCount[index]);
+        // console.log("click", click);
+        wards.map(ward => {
+            // console.log("patients ",ward.patientId);
+            ward.patientId.map((patient, index) => {
+                // console.log("patient admit date",patient.updatedAt.substring(0, 10));
+                if (patient.admit_date.substring(0, 10) === '2023-03-19') {
+                    newAdmissionCount += 1;
+                    console.log("ok", newAdmissionCount);
+                }
+                if (patient.discharge_date) {
+                    console.log("asd");
+                    if (patient.discharge_date.substring(0,10) === date) {  
+                        dischargedCount += 1;
+                        console.log("ok", dischargedCount);
                     }
                 }
+                if (patient.status === "dead") {
+                    deathCount += 1;
+                }
+                if (patient.status === "transferred") {
+                    transferCount += 1;
+                }
+                if (patient.status === "missing") {
+                    transferCount += 1;
+                }
             });
-        });
+            newAdmissionCountArray.push(newAdmissionCount);
+            dischargedCountArray.push(dischargedCount);
+            deathCountArray.push(deathCount);
+            transferCountArray.push(transferCount);
+            missingCountArray.push(missingCount);
+            newAdmissionCount = 0;
+            dischargedCount = 0;
+            deathCount = 0;
+            transferCount = 0;
+        })
+        console.log("new admission count", newAdmissionCountArray);
+        console.log("new discharge count", dischargedCountArray);
+        console.log("new death count", deathCountArray);
+        console.log("new transfer count", transferCountArray);
+        console.log("new missing count", missingCountArray);
+
+        newAdmissionCountArray.map((count, index) => {
+            console.log("new admission count Array", count);
+        })
     }
+
+
 
     // console.log( "all wards", wards);
     // console.log("all patients", patients);
@@ -146,84 +122,81 @@ function HospitalReport() {
                         <table className="min-w-full text-center text-sm font-light">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr>
-                                <th scope="col" className="px-6 py-4">Details</th>
+                                <th scope="col" className="px-6 py-4">Details / Wards</th>
                                    { wards.map((ward, index) => (
-                                       <th scope="col" className="px-6 py-4">{ward.wardId}</th>
+                                       <th scope="col" className="px-6 py-4">{ward.wardId.name}</th>
                                    ))}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr className="border-b dark:border-neutral-500">
                                     <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Default
+                                        No of beds
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                </tr>
-                                <tr
-                                    className="border-b border-primary-200 bg-primary-100 text-neutral-800">
-                                    <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Primary
-                                    </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                                    {
+                                        wards.map((ward, index) => (
+                                            <td className="whitespace-nowrap px-6 py-4">{ward.wardId.no_of_beds}</td>
+                                        ))
+                                    }
                                 </tr>
                                 <tr
                                     className="border-b border-secondary-200 bg-secondary-100 text-neutral-800">
                                     <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Secondary
+                                        New Admissions
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                                    {
+                                        newAdmissionCountArray.forEach((count, index) => (    
+                                            <td className="whitespace-nowrap px-6 py-4">{count}</td>
+                                        ))
+                                    }
                                 </tr>
                                 <tr
                                     className="border-b border-success-200 bg-success-100 text-neutral-800">
                                     <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Success
+                                        Discharge
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                                    {
+                                        dischargedCountArray.map((count, index) => {
+                                            return (
+                                                <td className="whitespace-nowrap px-6 py-4">{count}</td>
+                                            )
+                                        })
+                                    }
                                 </tr>
                                 <tr
                                     className="border-b border-danger-200 bg-danger-100 text-neutral-800">
                                     <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Danger
+                                        Death
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                                    {
+                                        deathCountArray.map((count, index) => (
+                                            <td className="whitespace-nowrap px-6 py-4">{count}</td>
+                                        ))
+                                    }
                                 </tr>
                                 <tr
                                     className="border-b border-warning-200 bg-warning-100 text-neutral-800">
                                     <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Warning
+                                        transfer
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                                    {
+                                        transferCountArray.map((count, index) => (
+                                            <td className="whitespace-nowrap px-6 py-4">{count}</td>
+                                        ))
+                                    }
                                 </tr>
                                 <tr
                                     className="border-b border-info-200 bg-info-100 text-neutral-800">
                                     <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Info
+                                        missing
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                                    {
+                                        missingCountArray.map((count, index) => (
+                                            <td className="whitespace-nowrap px-6 py-4">{count}</td>
+                                        ))
+                                    }
                                 </tr>
-                                <tr
-                                    className="border-b border-neutral-100 bg-neutral-50 text-neutral-800 dark:bg-neutral-50">
-                                    <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Light
-                                    </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                </tr>
-                                <tr
-                                    className="border-b border-neutral-700 bg-neutral-800 text-neutral-50 dark:border-neutral-600 dark:bg-neutral-700">
-                                    <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        Dark
-                                    </td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
