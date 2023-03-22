@@ -8,7 +8,6 @@ function NurseProfile() {
     const navigate = useNavigate();
     const location = useLocation();
     const nurseID = location.state.ID;
-    console.log("nurseID", nurseID);
     const [first_name, setFirst_name] = useState("");
     const [last_name, setLast_name] = useState("");
     const [email, setEmail] = useState("");
@@ -48,17 +47,15 @@ function NurseProfile() {
                     setNIC(response.data.NIC);
 
                 }
-                console.log("nurse hospital ID", response.data.hospitalID);
 
                 const wardResponse = await axios.get(`${baseUrl}/ward/hospital/${response.data.hospitalID}`);
                 if (wardResponse) {
-                    console.log("all wards", wardResponse.data);
                     setWards(wardResponse.data);
                 }
                
             }
             catch (err) {
-                console.log(err);
+                alert(err)
             }
         }
         getData();
@@ -67,9 +64,7 @@ function NurseProfile() {
     useEffect(() => {
         if (wards) {
             wards.map((ward) => {
-                console.log("ward details", ward);
                 if (ward._id === wardID) {
-                    console.log("ok");
                     setWardName(ward.name);
                 }
             });
@@ -82,7 +77,6 @@ function NurseProfile() {
         // navigate("/nurseDashboard", { state: { hospitalID: hospitalID, wardID: wardID } });
         navigate(-1);
     }
-console.log("ward name", wardName);
   return (
     <section className="h-screen">
                     <Header username={localStorage.getItem("username")} first_name={localStorage.getItem("first_name")} />

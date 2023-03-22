@@ -9,8 +9,6 @@ function NurseRegister() {
     const navigate = useNavigate();
     const wardID = location.state.wardID;
     const HospitalID = location.state.HospitalID;
-    console.log("ward id", wardID);
-    console.log("hospital id", HospitalID);
     const [first_name, setFirst_name] = useState("");
     const [last_name, setLast_name] = useState("");
     const [email, setEmail] = useState("");
@@ -38,8 +36,6 @@ function NurseRegister() {
 	});
 
     const handleSubmit = async (e) => {
-        console.log("hospital id", HospitalID);
-        console.log("ward id", wardID);
         if (password !== confirm_password) {
             setPasswordMatch(false);
             return;
@@ -51,13 +47,11 @@ function NurseRegister() {
         try {
             const response = await axios.post(`${baseUrl}/nurse`, { first_name, last_name, NIC, email, username, password, hospitalID: HospitalID, timeSlot, ward: wardID });
             if (response) {
-                console.log(response);
                 alert("Nurse Registered Successfully");
                 navigate("/nurses", { state: { wardID: wardID, HospitalID: HospitalID } });
             }
         }
         catch (error) {
-            console.log(error);
             alert("Error in Registering Nurse");
             navigate("/nurses", { state: { wardID: wardID, HospitalID: HospitalID } });
         }

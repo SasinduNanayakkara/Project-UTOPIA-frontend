@@ -27,7 +27,6 @@ function Patients() {
   const location = useLocation();
   const wardID = location.state.wardID;
   const HospitalID = location.state.HospitalID;
-  console.log(wardID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -66,10 +65,8 @@ function Patients() {
       try {
         const response = await axios.get(`${baseUrl}/patient/ward/${wardID}`);
         if (response.status === 200) {
-          console.log(response.data);
           response.data.forEach(element => {
             if (element.admit_date) {
-              console.log(element.admit_date);
               element.admit_date = element.admit_date.substring(0, 10);
             }
           });
@@ -77,13 +74,10 @@ function Patients() {
         }
       }
       catch (error) {
-        console.log(error);
       }
     }
     getPatients();
   }, []);
-  console.log("wardID", wardID);
-  console.log("HospitalID", HospitalID);
 
   const navigateToWard = (event, rowData) => {
     navigate('/patientProfile', { state: { wardID: wardID, HospitalID: HospitalID, ID: rowData._id } })

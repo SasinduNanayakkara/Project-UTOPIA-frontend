@@ -10,7 +10,6 @@ function DoctorDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const hospitalID = location.state.hospitalID;
-  console.log("ID", localStorage.getItem("ID"));
 
   useEffect(() => {
 		const authenticate = async () => {

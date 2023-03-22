@@ -27,7 +27,6 @@ function Inventories() {
   const navigate = useNavigate();
   const location = useLocation();
   const wardID = location.state.wardID;
-  console.log("wardID", wardID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -70,7 +69,7 @@ function Inventories() {
         }
       }
       catch (error) {
-        console.log(error);
+        alert(error)
       }
     }
     getInventories();

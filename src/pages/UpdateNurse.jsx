@@ -20,7 +20,6 @@ function UpdateNurse() {
     const [ward, setWard] = useState("");
     const [wards, setWards] = useState([]);
     const [role, setRole] = useState("");
-    console.log(nurseID);
 
     useEffect(() => {
 		const authenticate = async () => {
@@ -40,12 +39,10 @@ function UpdateNurse() {
             try {
                 const wardResponse = await axios.get(`${baseUrl}/ward/hospital/${hospitalID}`);
                 if (wardResponse) {
-                    console.log(" wards ok");
                     setWards(wardResponse.data);
                 }
                 const PatientResponse = await axios.get(`${baseUrl}/nurse/${nurseID}`);
                 if (PatientResponse) {
-                    console.log("nurse data ok");
                     setFirst_name(PatientResponse.data.first_name);
                     setLast_name(PatientResponse.data.last_name);
                     setEmail(PatientResponse.data.email);
@@ -58,16 +55,13 @@ function UpdateNurse() {
                 }
             }
             catch (error) {
-                console.log(error);
+                alert(error)
             }
         }
         getDoctorDetails();
     }, []);
-    console.log(wards);
-    console.log(first_name);
 
     const handleSubmit = async (e) => {
-        console.log("ward id", wardID);
         if (validation(NIC) === false) {
             return
         }
@@ -75,13 +69,11 @@ function UpdateNurse() {
         try {
             const response = await axios.put(`${baseUrl}/nurse/${nurseID}`, { first_name, last_name, NIC, email, username, role, hospitalID: Hospital, ward, timeSlot });
             if (response) {
-                console.log(response);
                 alert("Nurse Updated Successfully");
                 navigate("/nurse", { state: { HospitalID: hospitalID, wardID: wardID } });
             }
         }
         catch (error) {
-            console.log(error);
             alert("Nurse Update Failed");
             navigate("/nurse", { state: { HospitalID: hospitalID, wardID: wardID } });
         }

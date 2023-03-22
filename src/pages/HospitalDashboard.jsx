@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import Ward from "../Asserts/ward.jpg";
 import Doctors from "../Asserts/Doc.jpg";
+import Patients from "../Asserts/patients.jpg";
 import Header from '../Components/Header'
 
 function HospitalDashboard() {
@@ -18,9 +19,13 @@ function HospitalDashboard() {
     navigate('/doctors', { state: { hospitalID: id } })
   }
 
+  const navigateToReport = (e) => {
+    navigate('/hospitalReport', { state: { hospitalID: id, hospitalName: name } })
+  }
+
   useEffect(() => {
 		const authenticate = async () => {
-			if (localStorage.getItem("role") === "admin") {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "night in charge") {
 				return true;
 			}
 			else {
@@ -86,6 +91,24 @@ function HospitalDashboard() {
                             <img
                               src={
                                 Doctors
+                              }
+                              className="mt-1 h-20 w-35"
+                              alt="timetable"
+                            />
+                          </div>
+                        </div>
+                        <div className="my-10 flex flex-row">
+                          <div className="flex flex-row bg-blue-900 h-20 w-100 mx-50 rounded transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
+                            <button
+                              onClick={
+                                navigateToReport
+                              }
+                              class="bg-button-blue h-20 hover:bg-button-hover-blue text-white font-bold text-lg px-[11.66rem] rounded">
+                              Hospital Report
+                            </button>
+                            <img
+                              src={
+                                Patients
                               }
                               className="mt-1 h-20 w-35"
                               alt="timetable"

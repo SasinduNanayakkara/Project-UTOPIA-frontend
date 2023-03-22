@@ -26,7 +26,6 @@ function Doctors() {
   const navigate = useNavigate();
   const location = useLocation();
   const hospitalID = location.state.hospitalID;
-  console.log("hospitalID", hospitalID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -69,12 +68,10 @@ function Doctors() {
         }
       }
       catch (error) {
-        console.log(error);
       }
     }
     getDoctors();
   }, []);
-  console.log(Doctors);
 
   const navigateToDoctorUpdate = (event, rowData) => {
     navigate('/updateDoctor', { state: { data: rowData, id: rowData._id, hospitalID: hospitalID } })

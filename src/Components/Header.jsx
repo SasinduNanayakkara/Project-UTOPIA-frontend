@@ -7,20 +7,12 @@ const Header = ({first_name, username}) => {
     const [nameText, setNameText] = useState("")
 
     const handleLogin = () => {
-        // localStorage.clear();
             navigate("/")
             console.log("logging in");
     }
 
     const handleLogOut = () => {
-        // console.log("logging out");
-        // localStorage.setItem("loggedIn", false)
-        // localStorage.removeItem("username")
-        // localStorage.removeItem("first_name")
-        // localStorage.removeItem("last_name")
-        // localStorage.removeItem("email")
-        // localStorage.removeItem("id")
-        // localStorage.removeItem("token")
+       
         localStorage.clear();
         navigate("/")
     }

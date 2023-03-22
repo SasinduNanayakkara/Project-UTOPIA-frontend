@@ -43,7 +43,6 @@ function PatientRegister() {
 
 
     const handleSubmit = async (e) => {
-        console.log("ward id", wardID);
         if (!validation(NIC)) {
             return;
         } 
@@ -55,17 +54,14 @@ function PatientRegister() {
         try {
             const response = await axios.post(`${baseUrl}/patient`, { name, NIC, blood_type: bloodType, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID, hospital: HospitalID });
             if (response) {
-                console.log(response);
                 const patientResponse = await axios.put(`${baseUrl}/wardPatient/${wardID}`, { patientId: response.data._id });
                 if (patientResponse) {
-                    console.log("patientResponse", patientResponse);
                     alert("Patient Registered Successfully");
                     navigate("/patients", { state: { wardID: wardID, HospitalID: HospitalID } });
                 }
             }
         }
         catch (error) {
-            console.log(error);
             alert("Patient Registration Failed");
             navigate("/patients", { state: { wardID: wardID, HospitalID: HospitalID } });
         }
@@ -85,7 +81,6 @@ function PatientRegister() {
         }
     }
 
-console.log(bloodType);
     return (
         <section className="h-screen">
             <Header />

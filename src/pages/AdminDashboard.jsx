@@ -6,15 +6,13 @@ import Admin from "../Asserts/Admin.jpg";
 import { useNavigate } from "react-router-dom";
 
 const AdminDashbaord = () => {
-	// eslint-disable-next-line react-hooks/rules-of-hooks
 	let navigate = useNavigate();
 
 	const id = localStorage.getItem("id");
-	console.log("RoleID: " + id);
 
 	useEffect(() => {
 		const authenticate = async () => {
-			if (localStorage.getItem("role") === "admin") {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "night in charge") {
 				return true;
 			}
 			else {

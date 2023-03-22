@@ -45,18 +45,15 @@ function UpdatePatient() {
 	});
 
 
-    console.log(patientID);
     useEffect(() => {
         const getDoctorDetails = async () => {
             try {
                 const wardResponse = await axios.get(`${baseUrl}/ward/hospital/${hospitalID}`);
                 if (wardResponse) {
-                    console.log(" wards ok");
                     setWards(wardResponse.data);
                 }
                 const PatientResponse = await axios.get(`${baseUrl}/patient/${patientID}`);
                 if (PatientResponse) {
-                    console.log("patient data ok");
                     setName(PatientResponse.data.name);
                     setNIC(PatientResponse.data.NIC);
                     setBloodType(PatientResponse.data.blood_type);
@@ -83,17 +80,13 @@ function UpdatePatient() {
                 });
             }
             catch (error) {
-                console.log(error);
+                alert(error)
             }
         }
         getDoctorDetails();
     }, []);
-    console.log(wards);
-    console.log(name);
-    console.log(bloodType);
 
     const handleSubmit = async (e) => {
-        console.log("ward id", wardID);
         if (validation(NIC) === false) {
             alert("Invalid NIC Number");
             return;
@@ -102,13 +95,11 @@ function UpdatePatient() {
         try {
             const response = await axios.put(`${baseUrl}/patient/${patientID}`, { name, NIC, blood_type: bloodType, gender, pulse, weight, height, complain, medical_history, surgical_history, food_allergies, drug_allergies, guardian_Details, address, phone, status, discharge_date, ward: wardID });
             if (response) {
-                console.log(response);
                 alert("Patient Updated Successfully");
                 navigate("/patients", { state: { HospitalID: hospitalID, wardID: wardID }});
             }
         }
         catch (error) {
-            console.log(error);
             alert("Patient Update Failed");
             navigate("/patients", { state: { HospitalID: hospitalID }});
         }

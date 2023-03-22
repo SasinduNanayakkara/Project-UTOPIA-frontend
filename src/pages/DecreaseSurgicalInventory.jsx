@@ -10,7 +10,6 @@ function DecreaseSurgicalInventory() {
     const medicineID = location.state.medicineID;
     const medicineName = location.state.medicineName;
     const serialNumber = location.state.serialNumber;
-    console.log(location.state.wardID);
     const [name, setName] = useState(medicineName);
     const [wardID, setWardID] = useState("");
     const [serial_number, setSerial_number] = useState(serialNumber);
@@ -39,18 +38,15 @@ function DecreaseSurgicalInventory() {
         try {
             const response = await axios.put(`${baseUrl}/inventory/decrease/${medicineID}`, { qty: parseInt(quantity) });
             if (response) {
-                console.log(response);
                 alert("Medicine Decreased Successfully");
                 navigate('/surgicalInventories', { state: { wardID: wardID } });
             }
         }
         catch (error) {
-            console.log(error);
             alert("Medicine Decrease Failed");
             navigate('/surgicalInventories', { state: { wardID: wardID } });
         }
     }
-    console.log(location.state.wardID);
     return (
         <section className="h-screen">
             <Header />

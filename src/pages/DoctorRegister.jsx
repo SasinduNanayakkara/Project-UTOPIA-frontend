@@ -36,10 +36,7 @@ function DoctorRegister() {
 		authenticate();
 	});
   
-  console.log(hospitals);
-  console.log(hospitalID);
   const handleSubmit = async (e) => {
-    console.log("hospital id", Hospital);
     if (password !== confirm_password) {
       setPasswordMatch(false);
       return;
@@ -51,7 +48,6 @@ function DoctorRegister() {
     try {
       const response = await axios.post(`${baseUrl}/doctor`, { first_name, last_name, email, username, password, specialization, hospitalID: hospitalID, NIC });
       if (response) {
-        console.log(response);
         setNotify({
           isOpen: true,
           message: 'Submitted Successful',
@@ -62,7 +58,6 @@ function DoctorRegister() {
       }
     }
     catch (error) {
-      console.log(error);
       alert("Doctor Registration Failed");
       navigate("/doctors", { state: { hospitalID: hospitalID } });
     }

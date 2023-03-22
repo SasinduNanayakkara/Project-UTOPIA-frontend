@@ -20,7 +20,6 @@ function UpdateDoctor() {
     const [NIC, setNIC] = useState("");
     const [hospitals, setHospitals] = useState([]);
     const [passwordMatch, setPasswordMatch] = useState(true);
-    console.log(doctorID);
 
     useEffect(() => {
 		const authenticate = async () => {
@@ -40,15 +39,11 @@ function UpdateDoctor() {
             try {
                 const hospitalResponse = await axios.get(`${baseUrl}/hospital`);
                 if (hospitalResponse) {
-                    console.log("ok");
-                    // response.data.map((hospital) => {
-                    //   setHospitals((prev) => [...prev, {id: hospital.id, name: hospital.name}]);
-                    // });
+                   
                     setHospitals(hospitalResponse.data);
                 }
                 const doctorResponse = await axios.get(`${baseUrl}/doctor/${doctorID}`);
                 if (doctorResponse) {
-                    console.log("ok");
                     setFirst_name(doctorResponse.data.first_name);
                     setLast_name(doctorResponse.data.last_name);
                     setEmail(doctorResponse.data.email);
@@ -59,16 +54,13 @@ function UpdateDoctor() {
                 }
             }
             catch (error) {
-                console.log(error);
+                alert(error)
             }
         }
         getDoctorDetails();
     }, []);
-    console.log(hospitals);
-    console.log(first_name);
 
     const handleSubmit = async (e) => {
-        console.log("hospital id", Hospital);
         if (validation(NIC) === false) {
             return;
         }
@@ -76,13 +68,11 @@ function UpdateDoctor() {
         try {
             const response = await axios.put(`${baseUrl}/doctor/${doctorID}`, { first_name, last_name, email, username, specialization, hospitalID: Hospital, NIC });
             if (response) {
-                console.log(response);
                 alert("Doctor Updated Successfully");
                 navigate("/doctors", { state: { hospitalID: hospitalID } });  
             }
         }
         catch (error) {
-            console.log(error);
             alert("Error Updating Doctor");
             navigate("/doctors", { state: { hospitalID: hospitalID } });
         }

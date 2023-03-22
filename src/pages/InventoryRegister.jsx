@@ -7,7 +7,6 @@ import Header from '../Components/Header'
 function InventoryRegister() {
     const location = useLocation();
     const navigate = useNavigate();
-    console.log(location.state.wardID);
     const [name, setName] = useState("");
     const [wardID, setWardID] = useState("");
     const [serial_number, setSerial_number] = useState("");
@@ -36,18 +35,15 @@ function InventoryRegister() {
         try {
             const response = await axios.post(`${baseUrl}/inventory`, { serial_number, name, type, quantity, ward: wardID, });
             if (response) {
-                console.log(response);
                 alert("Inventory Added Successfully");
                 navigate("/inventories", { state: { wardID: wardID } });
             }
         }
         catch (error) {
-            console.log(error);
             alert(error.message);
             navigate("/inventories", { state: { wardID: wardID } });
         }
     }
-    console.log(location.state.wardID);
     return (
         <section className="h-screen">
             <Header />

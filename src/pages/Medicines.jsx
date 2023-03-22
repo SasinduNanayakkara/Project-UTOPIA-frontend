@@ -27,7 +27,6 @@ function Medicines() {
   const navigate = useNavigate();
   const location = useLocation();
   const wardID = location.state.wardID;
-  console.log("wardID", wardID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -70,12 +69,10 @@ function Medicines() {
         }
       }
       catch (error) {
-        console.log(error);
       }
     }
     getMedicines();
   }, []);
-  console.log(Medicines);
 
   const navigateToMedicine = (event, rowData) => {
     alert(`Please Request more ${rowData.name}`);

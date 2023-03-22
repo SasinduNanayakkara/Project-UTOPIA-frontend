@@ -48,7 +48,7 @@ function Hospitals() {
 
   useEffect(() => {
 		const authenticate = async () => {
-			if (localStorage.getItem("role") === "admin") {
+			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "night in charge") {
 				return true;
 			}
 			else {
@@ -68,7 +68,7 @@ function Hospitals() {
         }
       }
       catch (error) {
-        console.log(error);
+        alert(error)
       }
     }
     getHospitals();

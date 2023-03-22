@@ -30,13 +30,11 @@ function HospitalRegister() {
     try {
       const response = await axios.post(`${baseUrl}/hospital`, { name, location, director, director_NIC: directorNIC, no_of_wards: noOfWards });
       if (response) {
-        console.log(response);
         alert("Hospital Registered Successfully");
         navigate("/hospitals");
       }
     }
     catch (error) {
-      console.log(error);
       alert("Hospital Registration Failed");
       navigate("/hospitals");
     }

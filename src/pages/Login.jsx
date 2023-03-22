@@ -24,11 +24,6 @@ const Login = () => {
         localStorage.setItem("role", response.data.data.role);
         localStorage.setItem("loggedIn", true);
 
-        console.log(localStorage.getItem("token"));
-        console.log(localStorage.getItem("username"));
-        console.log(localStorage.getItem("first_name"));
-        console.log(localStorage.getItem("last_name"));
-        console.log(localStorage.getItem("ID"));
 
         if (response.data.data.role === "admin") {
           alert("Login Successful");
@@ -46,13 +41,14 @@ const Login = () => {
           alert("Login Successful");
           navigate("/WardDashboard", { state: { wardID: response.data.data.ward,  HospitalID: response.data.data.hospitalID } });
         }
-        else {
+        else if (response.data.data.role === "night in charge") {
+          alert("Login Successful");
+          navigate("/adminDashboard" )
         }
       }
     }
     catch (err) {
       alert("Username or Password is incorrect")
-      console.log(err);
     }
   }
   return (

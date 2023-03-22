@@ -23,14 +23,12 @@ function DoctorProfile() {
         const [passwordMatch, setPasswordMatch] = useState(true);
         const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
 
-        console.log(hospitals);
 
         useEffect(() => {
             const getData = async () => {
                 try {
                     const response = await axios.get(`${baseUrl}/doctor/${ID}`);
                     if (response) {
-                        console.log(response);
                         setFirst_name(response.data.first_name);
                         setLast_name(response.data.last_name);
                         setEmail(response.data.email);
@@ -41,7 +39,7 @@ function DoctorProfile() {
                     }
                 }
                 catch (err) {
-                    console.log(err);
+                    alert(err);
                 }
             }
             getData();

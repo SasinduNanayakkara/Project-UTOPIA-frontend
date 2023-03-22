@@ -67,7 +67,7 @@ function PatientProfile() {
                 }
             }
             catch (error) {
-                console.log(error);
+                alert(error)
             }
         }
 
@@ -78,8 +78,6 @@ function PatientProfile() {
         navigate("/patients", { state: { wardID: wardID, HospitalID: HospitalID } });
     }
 
-    console.log("id", ID);
-    console.log(HospitalID);
     return (
         <section className="h-screen">
             <Header />

@@ -27,7 +27,6 @@ function SurgicalInventories() {
   const navigate = useNavigate();
   const location = useLocation();
   const wardID = location.state.wardID;
-  console.log("wardID", wardID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -70,12 +69,11 @@ function SurgicalInventories() {
         }
       }
       catch (error) {
-        console.log(error);
+        alert(error)
       }
     }
     getSurgicalInventories();
   }, []);
-  console.log(SurgicalInventories);
 
   const navigateToInventory = (event, rowData) => {
     alert(`please request more ${rowData.name}`);

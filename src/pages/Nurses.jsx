@@ -27,8 +27,6 @@ function Nurses() {
   const location = useLocation();
   const wardID = location.state.wardID;
   const HospitalID = location.state.HospitalID;
-  console.log("ward", wardID);
-  console.log("hospitalID", HospitalID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -71,12 +69,11 @@ function Nurses() {
         }
       }
       catch (error) {
-        console.log(error);
+        alert(error)
       }
     }
     getNurses();
   }, []);
-  console.log(Nurses);
 
   const navigateNurseProfile = (event, rowData) => {
     navigate('/nurseProfile', { state: { ID: rowData._id } })

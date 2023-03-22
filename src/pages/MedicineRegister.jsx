@@ -8,7 +8,6 @@ import Notification from '../Components/Notification';
 function MedicineRegister() {
     const location = useLocation();
     const navigate = useNavigate();
-    console.log(location.state.wardID);
     const [name, setName] = useState("");
     const [wardID, setWardID] = useState("");
     const [serial_number, setSerial_number] = useState("");
@@ -43,7 +42,6 @@ function MedicineRegister() {
         try {
             const response = await axios.post(`${baseUrl}/inventory`, { serial_number, name, type, quantity, ward: wardID, });
             if (response) {
-                console.log(response);
                 setNotify({
                     isOpen: true,
                     message: "Medicine Registered Successfully",
@@ -54,10 +52,9 @@ function MedicineRegister() {
             }
         }
         catch (error) {
-            console.log(error);
+            alert(error)
         }
     }
-    console.log(location.state.wardID);
     return (
         <section className="h-screen">
             <Header />

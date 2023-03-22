@@ -17,8 +17,6 @@ function WardDashboard() {
     const wardID = location.state.wardID;
 	const [wardName, setWardName] = useState("");
     // const no_of_beds = location.state.no_of_beds;
-    console.log("ward", wardID);
-    console.log("hospital ID", HospitalID);
 
 	useEffect(() => {
 		const authenticate = async () => {
@@ -42,7 +40,6 @@ function WardDashboard() {
 		}
 		getWardData();
 	},[]);
-	console.log("ward name", wardName);
     const navigateToPatients = (e) => {
         navigate('/patients', { state: { wardID: wardID, HospitalID: HospitalID } });
     }

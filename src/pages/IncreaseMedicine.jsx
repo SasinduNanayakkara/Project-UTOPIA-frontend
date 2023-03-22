@@ -10,7 +10,6 @@ function IncreaseMedicine() {
     const medicineID = location.state.medicineID;
     const medicineName = location.state.medicineName;
     const serialNumber = location.state.serialNumber;
-    console.log(location.state.wardID);
     const [name, setName] = useState(medicineName);
     const [wardID, setWardID] = useState("");
     const [serial_number, setSerial_number] = useState(serialNumber);
@@ -39,16 +38,13 @@ function IncreaseMedicine() {
         try {
             const response = await axios.put(`${baseUrl}/inventory/increase/${medicineID}`, { qty: parseInt(quantity) });
             if (response) {
-                console.log(response);
                 alert("Medicine Increased Successfully");
                 navigate('/medicines', { state: { wardID: wardID } });
             }
         }
         catch (error) {
-            console.log(error);
         }
     }
-    console.log(location.state.wardID);
     return (
         <section className="h-screen">
             <Header />

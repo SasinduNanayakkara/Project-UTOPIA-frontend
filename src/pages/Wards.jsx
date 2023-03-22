@@ -27,7 +27,6 @@ function Wards() {
   const navigate = useNavigate();
   const location = useLocation();
   const hospitalID = location.state.hospitalID;
-  console.log("hospitalId", hospitalID);
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -66,20 +65,17 @@ function Wards() {
       try {
         const response = await axios.get(`${baseUrl}/ward/hospital/${hospitalID}`);
         if (response.status === 200) {
-          console.log(response.data);
           setWards(response.data);
         }
       }
       catch (error) {
-        console.log(error);
+        alert(error)
       }
     }
     getWards();
   }, []);
-  console.log(Wards);
 
   const navigateToWard = (event, rowData) => {
-    console.log(rowData.name);
     navigate('/wardDashboard', { state: { HospitalID: hospitalID, wardID: rowData._id, wardName: rowData.name, no_of_beds: rowData.no_of_beds } })
   }
 
