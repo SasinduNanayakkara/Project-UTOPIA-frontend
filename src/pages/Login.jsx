@@ -31,14 +31,19 @@ const Login = () => {
         }
         else if (response.data.data.role === "doctor") {
           alert("Login Successful");
+          localStorage.setItem("hospitalID", response.data.data.hospitalID);
           navigate("/doctorDashboard", { state: { hospitalID: response.data.data.hospitalID } });
         }
         else if (response.data.data.role === "nurse") {
           alert("Login Successful");
+          localStorage.setItem("hospitalID", response.data.data.hospital);
+          localStorage.setItem("wardID", response.data.data.ward);
           navigate("/nurseDashboard", { state: { hospitalID: response.data.data.hospital, wardID: response.data.data.ward } } );
         }
         else if (response.data.data.role === "ward manager") {
           alert("Login Successful");
+          localStorage.setItem("hospitalID", response.data.data.hospitalID);
+          localStorage.setItem("wardID", response.data.data.ward);
           navigate("/WardDashboard", { state: { wardID: response.data.data.ward,  HospitalID: response.data.data.hospitalID } });
         }
         else if (response.data.data.role === "night in charge") {
