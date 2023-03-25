@@ -28,6 +28,10 @@ function HospitalReport() {
     const [deathCountArrayValue, setDeathCountArrayValue] = useState([]);
     const [missingCountArrayValue, setMissingCountArrayValue] = useState([]);
 
+    const reportData = {
+        
+    }
+
     useEffect(() => {
         const authenticate = async () => {
             if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "night in charge") {

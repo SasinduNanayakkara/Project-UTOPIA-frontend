@@ -48,17 +48,17 @@ function Wards() {
   };
 
   useEffect(() => {
-		const authenticate = async () => {
-			if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor") {
-				return true;
-			}
-			else {
-				alert("You are not authorized to view this page");
-				navigate(-1);
-			}
-		}
-		authenticate();
-	});
+    const authenticate = async () => {
+      if (localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" || localStorage.getItem("role") === "night in charge") {
+        return true;
+      }
+      else {
+        alert("You are not authorized to view this page");
+        navigate(-1);
+      }
+    }
+    authenticate();
+  });
 
   useEffect(() => {
     const getWards = async () => {
@@ -83,8 +83,11 @@ function Wards() {
     navigate('/wardRegister', { state: { hospitalId: hospitalID } })
   }
 
-  const HospitalName = <span className='font-bold'>Hospital Name</span>
+  const HospitalName = <span className='font-bold'>Ward Name</span>
   const Location = <span className='font-bold'>Number of Beds</span>
+  const EditAction = localStorage.getItem("role") === "admin" ? (<span style={{ color: '#72A400', fontWeight: 'bold', fontSize: '14px' }}>Edit</span>) : null;
+  const DeleteAction = localStorage.getItem("role") === "admin" ? (<span style={{ color: '#f44336', fontWeight: 'bold', fontSize: '14px' }}>Delete</span>) : null;
+
 
   return (
     <div>
@@ -96,13 +99,13 @@ function Wards() {
         </button>
       </div>
       <div style={{ maxWidth: '90%' }} className="ml-16">
-      <style>
-    {`
+        <style>
+          {`
       .MuiTableCell-head {
         font-size: 15px;
       }
     `}
-  </style>
+        </style>
         <MaterialTable
           icons={tableIcons}
           columns={[
@@ -114,21 +117,21 @@ function Wards() {
           actions={[
             {
               icon: () => (
-                <span style={{color: '#1976d2', fontWeight: 'bold', fontSize: '14px'}}>View</span>
+                <span style={{ color: '#1976d2', fontWeight: 'bold', fontSize: '14px' }}>View</span>
               ),
               tooltip: 'View ward',
               onClick: (event, rowData) => { navigateToWard(event, rowData) }
             },
             {
               icon: () => (
-                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
+                EditAction
               ),
               tooltip: 'Edit ward',
               onClick: (event, rowData) => { alert("Sorry, You can't edit this ward") }
             },
             {
               icon: () => (
-                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
+                DeleteAction
               ),
               tooltip: 'Delete ward',
               onClick: (event, rowData) => { alert("Sorry, You can't delete this ward") }
@@ -137,7 +140,7 @@ function Wards() {
           options={{
             headerStyle: {
               backgroundColor: '#012c4f',
-          color: '#FFF'
+              color: '#FFF'
             },
             actionsColumnIndex: -1
           }}

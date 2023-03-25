@@ -111,7 +111,7 @@ function Patients() {
     <span style={{ color: '#1976d2', fontWeight: 'bold', fontSize: '14px' }}></span>
   );
 
-  const DeleteText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "doctor" ? (
+  const DeleteText = localStorage.getItem("role") === "ward manager" || localStorage.getItem("role") === "admin" ? (
     <span style={{ color: '#f44336', fontWeight: 'bold', fontSize: '14px' }}>Delete</span>
 
   ) : (
