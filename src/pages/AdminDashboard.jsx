@@ -41,7 +41,7 @@ const AdminDashbaord = () => {
 								<div className="ml-20 w-full ">
 									<div className="w-[75%] mb-10 mt-12">
 										<h1 className="text-button-blue font-semibold text-5xl text-center">
-											Admin Dashboard
+											{localStorage.getItem("role") === "night in charge" ? "Night In Charge Dashboard" : "Admin Dashboard"}
 										</h1>
 									</div>
 

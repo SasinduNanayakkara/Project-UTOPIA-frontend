@@ -85,6 +85,9 @@ function Hospitals() {
 
   const HospitalName = <span className='font-bold'>Hospital Name</span>
   const Location = <span className='font-bold'>Location</span>
+  const EditAction = localStorage.getItem("role") === "admin" ? (<span style={{ color: '#72A400', fontWeight: 'bold', fontSize: '14px' }}>Edit</span>) : null;
+  const DeleteAction = localStorage.getItem("role") === "admin" ? (<span style={{ color: '#f44336', fontWeight: 'bold', fontSize: '14px' }}>Delete</span>) : null;
+
 
   return (
     <div>
@@ -121,14 +124,14 @@ function Hospitals() {
             },
             {
               icon: () => (
-                <span style={{color: '#72A400', fontWeight: 'bold', fontSize: '14px'}}>Edit</span>
+                EditAction
               ),
               tooltip: 'Edit Hospital',
               onClick: (event, rowData) => { alert("You don't have permission to update this hospital") }
             },
             {
               icon: () => (
-                <span style={{color: '#f44336', fontWeight: 'bold', fontSize: '14px'}}>Delete</span>
+                DeleteAction
               ),
               tooltip: 'Delete Hospital',
               onClick: (event, rowData) => { alert("You don't have permission to delete this hospital") }
